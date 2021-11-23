@@ -4,7 +4,7 @@
     <div id="nav-container">
         <div class="navlogo">
 
-            <a href="#"><img src="../assets/logo.png" alt="logo" width="200" ></a>
+            <a href="#"><router-link to="/"><img src="../assets/logo.png" alt="logo" width="200" ></router-link></a>
 
         </div>
         <div class="nav-list">
@@ -15,7 +15,7 @@
     </a>
 
 <a class="button-login">
-    <router-link to="/LogIn">Se connecter</router-link>
+    <router-link to="/Login">Se connecter</router-link>
 </a>
 </div>
 
@@ -36,6 +36,7 @@ export default {
 </script>
 
 <style>
+    
 .navbar
 {
     background-color: black;
@@ -52,6 +53,7 @@ export default {
 
 .navlogo img {
 margin: 1em;
+margin-top: 1.5em;
 
 
 }
@@ -59,12 +61,15 @@ margin: 1em;
 .nav-list {
     margin: 1.5em;
     margin-right: 1em;
+    margin-top: 2em;
     
 }
 
 .nav-list a {
     margin-right: 1em;
     cursor: pointer;
+    text-decoration: none;
+    color: white;
 }
 
 .nav-list a:hover {

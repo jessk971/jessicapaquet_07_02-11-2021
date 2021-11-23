@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+}
+
+.container_login form {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border: solid transparent;
+    border-radius: 10px;
+    margin: auto;
+    width: 600px;
+    flex-direction: column;
+    padding-top: 2em;
+    line-height: 2.5em;
+    opacity: 0.9;
+    padding-bottom: 2em;
+    box-shadow: 4px 2px 2px rgb(77, 77, 77);
+}
+
+.container {
+    background: url(./assets/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 550px;
+}
+
+button {
+    width: 100px;
+    margin: auto;
+    margin-top: 2em;
+    border: solid transparent;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 2px 1px 1px rgb(168, 168, 168);
+    color: black;
+}
+
+.router-link {
+    text-decoration: none;
+}
+
+button:hover {
+    box-shadow: 5px 2px 2px gray;
+    background: linear-gradient(black, grey);
+    color: white;
+}
+
+.title-login h1 {
+    text-shadow: 3px 3px 3px black;
+    color: white;
+    font-style: oblique;
+    font-weight: 900;
+    font-size: 50px;
+    margin-top: 0;
+    padding-top: 1em;
+    text-align: center;
+}
+
+.form_signup label {
+    margin-left: 1em;
+    font-size: larger;
+    font-weight: 900;
+}

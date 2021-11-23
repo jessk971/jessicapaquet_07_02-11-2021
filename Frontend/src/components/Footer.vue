@@ -3,7 +3,7 @@
         <div class="footer-container">
             <div class="footer-list">
                 <a href="#" aria-label="mentions">Mentions légales</a>
-                <a href="#" aria-label="confidentialité">Polique de confidentialité</a>
+                <a href="#" aria-label="confidentialité">Politique de confidentialité</a>
                 <a href="mailto:webmaster@example.com" aria-label="contact administrateur par email">Contact</a>
             </div>
         </div>
@@ -24,17 +24,20 @@ export default {
 .footer-container {
 
     background-color: black;
+    padding: 1em;
     
     ;
 }
 
-.footer-list a {
+.footer-list  {
 
-    text-decoration: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    color: white;
-    flex-direction: row;
+    
+}
+.footer-list a {
+    text-decoration: none;
+    color:white
 }
 </style>
