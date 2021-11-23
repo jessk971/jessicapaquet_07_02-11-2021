@@ -9,12 +9,6 @@
         </div>
 
         <form>
-            <div class="form_signup">
-
-         <label for="inputUserName"> Nom d'utilisateur: </label> 
-         <input class="form-signup" type="text" id="inputUserName" aria-describedby="inputUserNameHelp" placeholder="Entrez votre identifiant">
-      
-        </div>
 
         <div class="form_signup">
 
