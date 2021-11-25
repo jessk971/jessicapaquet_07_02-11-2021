@@ -1,15 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const mongoose = require('mongoose');
 
-require('dotenv').config();
-mongoose.connect(process.env.MY_APP_SECRET, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
 
 
 app.use((req, res, next) => {
