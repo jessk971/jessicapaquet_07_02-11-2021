@@ -1,11 +1,12 @@
 const Sequelize = require('sequelize');
-const dotenv = require('dotenv').config()
+dotenv = require('dotenv').config()
 
 const sequelize = new Sequelize('groupomania', process.env.DB_NAME, process.env.DB_MDP, {
     host: 'localhost',
     port: 3306,
     dialect: 'mysql',
-    operatorsAliases: false
+    database: "groupomania",
+
 });
 
 sequelize.authenticate()
