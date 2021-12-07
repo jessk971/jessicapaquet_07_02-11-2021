@@ -3,8 +3,11 @@ const jwt = require('jsonwebtoken');
 
 const fs = require('fs');
 const db = require('../models/index.js');
+const UserModel = require('../models/user.js');
 
 console.log(Object.keys(db));
+UserModel.findAll()
+    .then((res) => console.log(res))
 
 
 
