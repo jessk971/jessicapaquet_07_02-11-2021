@@ -53,6 +53,18 @@ exports.login = (req, res, next) => {
 
 exports.getOneUser = (req, res, next) => { // récupération d'un seul user
     User.findOne({ _id: req.params.id })
-        .then(sauce => res.status(200).json(sauce))
+        .then(user => res.status(200).json(user))
         .catch(error => res.status(404).json({ error }))
+};
+
+exports.deleteUser = (request, response, next) => {
+    User.destroy({
+        where: { id: request.userId }
+    }).then(user => {
+        response.status(204).json([]);
+    }).catch(error => {
+        return response.status(400).json({
+            error
+        })
+    });
 };

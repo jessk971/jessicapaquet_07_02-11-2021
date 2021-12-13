@@ -7,7 +7,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
 const userRoutes = require('./routes/user.routes');
-
+const publicationRoutes = require('./routes/publication.routes');
 
 
 
@@ -26,7 +26,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.use('/api/auth', userRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/publications', publicationRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
