@@ -68,3 +68,20 @@ exports.deleteUser = (request, response, next) => {
         })
     });
 };
+
+exports.getAllUsers = (req, res, next) => { // récuprération de tout les users
+    User.find()
+        .then(user => res.status(200).json(sauce))
+        .catch(error => res.status(400).json({ error }))
+
+};
+
+exports.modifyUser = (req, res, next) => {
+    const userObject = req.file ? {
+        ...JSON.parse(req.body.user),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : {...req.body };
+    User.update({ _id: req.params.id }, {...userObject, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Profil modifié !' }))
+        .catch(error => res.status(400).json({ error }));
+};

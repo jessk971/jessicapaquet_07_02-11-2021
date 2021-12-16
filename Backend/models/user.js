@@ -12,7 +12,7 @@ const User = sequelize.define(
 );
 
 User.associate = function(models) {
-    // associations can be defined here
+
     models.User.hasMany(models.Publication);
 };
 
