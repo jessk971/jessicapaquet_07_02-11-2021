@@ -57,9 +57,9 @@ exports.getOneUser = (req, res, next) => { // récupération d'un seul user
         .catch(error => res.status(404).json({ error }))
 };
 
-exports.deleteUser = (request, response, next) => {
+exports.deleteUser = (req, res, next) => {
     User.destroy({
-        where: { id: request.userId }
+        where: { _id: req.params.id }
     }).then(user => {
         response.status(204).json([]);
     }).catch(error => {

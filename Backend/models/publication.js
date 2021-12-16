@@ -7,6 +7,7 @@ const Publication = sequelize.define(
     'Publication', {
         user_id: DataTypes.INTEGER,
         content: DataTypes.STRING,
+        image: DataTypes.STRING,
     }, {}
 );
 
