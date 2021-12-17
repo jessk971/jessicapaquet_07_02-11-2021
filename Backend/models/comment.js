@@ -4,8 +4,11 @@ const sequelize = require('../config/db')
 
 const Comment = sequelize.define(
     'Comment', {
-        user_id: DataTypes.INTEGER,
+
         comment: DataTypes.STRING,
+        user_id: DataTypes.INTEGER,
+        post_id: DataTypes.INTEGER,
+
     }, {}
 );
 
@@ -16,7 +19,7 @@ Comment.associate = function(models) {
 
     })
     models.Comment.belongsTo(models.Publication, {
-        foreignKey: 'user_id'
+        foreignKey: 'post_id'
 
 
     })
