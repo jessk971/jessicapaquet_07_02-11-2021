@@ -49,7 +49,7 @@ exports.modifyPublication = (req, res, next) => {
 exports.deletePublication = (req, res, next) => {
     Publication.findOne({ _id: req.params.id }) // on identifie la sauce 
         .then(publication => {
-            const filename = publication.imageUrl.split('/images/')[1]; // récupération url de l'image 
+            const filename = publication.image.split('/images/')[1]; // récupération url de l'image 
             fs.unlink(`images/${filename}`, () => { // supprimer du server 
                 Publication.deleteOne({ _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Publication supprimée !' }))

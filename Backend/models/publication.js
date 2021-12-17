@@ -13,13 +13,8 @@ const Publication = sequelize.define(
 
 Publication.associate = function(models) {
     models.Publication.belongsTo(models.User, {
-        foreignKey: {
-            allowNull: false
-        }
+        foreignKey: 'user_id'
     })
 };
 
 return Publication;
-
-
-module.exports = Publication
