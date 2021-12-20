@@ -42,12 +42,12 @@ exports.getOneComment = (req, res) => {
 exports.deleteComment = (req, res) => {
 
     Comment.findOne({
-            where: { _id: req.params.id },
+            where: { id: req.params.id },
         })
         .then((comment) => {
 
-            if (comment.user_id == req.token.userId || req.token.isAdmin === true) {
-                Comment.destroy({ where: { _id: req.params.id } })
+            if (comment.user_id == req.userId || req.isAdmin === true) {
+                Comment.destroy({ where: { id: req.params.id } })
                     .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
                     .catch((error) => res.status(400).json({ error }));
             } else {

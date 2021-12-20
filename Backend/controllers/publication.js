@@ -30,7 +30,7 @@ exports.getAllPublications = (req, res) => {
 
 exports.getOnePublication = (req, res) => {
 
-    Publication.findOne({ where: { _id: req.params.id }, include: { model: User } })
+    Publication.findOne({ where: { id: req.params.id }, include: { model: User } })
         .then(publication => res.status(200).json(publication))
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher cette publication', error }));
 }
@@ -42,27 +42,27 @@ exports.modifyPublication = (req, res) => {
     if (req.file) {
         updatedPublication["image"] = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
-    Publication.update(updatedPublication, { where: { _id: req.params.id, user_id: req.body.user_id } })
+    Publication.update(updatedPublication, { where: { id: req.params.id, user_id: req.body.user_id } })
         .then(() => res.status(200).json({ message: 'Publication modifiée avec succès' }))
         .catch(error => res.status(400).json({ message: 'Impossible de modifier cette publication', error }));
 }
 
 exports.deletePublication = (req, res, next) => {
     Publication.findOne({
-            where: { _id: req.params.id },
+            where: { id: req.params.id },
         })
         .then((publication) => {
 
-            if (user._id === req.token.userId || req.token.isAdmin === true) {
+            if (publication.userId === req.userId || req.isAdmin === true) {
                 if (publication.image) {
                     const filename = post.image.split("/images/")[1];
                     fs.unlink(`./images/${filename}`, () => {
-                        Publication.destroy({ where: { _id: req.params.id } })
+                        Publication.destroy({ where: { id: req.params.id } })
                             .then(() => res.status(200).json({ message: "Publication supprimée !" }))
                             .catch((error) => res.status(400).json({ error }));
                     });
                 } else {
-                    Publication.destroy({ where: { _id: req.params.id } })
+                    Publication.destroy({ where: { id: req.params.id } })
                         .then(() => res.status(200).json({ message: "Publication supprimée !" }))
                         .catch((error) => res.status(400).json({ error }));
                 }

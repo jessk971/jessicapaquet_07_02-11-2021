@@ -17,8 +17,18 @@
 <a class="button-login">
     <router-link to="/Login">Se connecter</router-link>
 </a>
-</div>
 
+
+<a v-if="status == 'login'" class="button-publication">
+    <router-link to="/WallGroupomania">File d'actualité</router-link>
+</a>
+
+<a v-if="status == 'login'" class="button-user">
+<router-link to="/Profil">Mon compte</router-link>
+</a>
+
+<a v-if="status == 'login'" class="button-logout" @click="logout()" >Se déconnecter</a>
+</div>
         </div>
     </div>
 </nav>
@@ -31,7 +41,15 @@
 export default {
 
     name: "NavBar",
-}
+
+      methods: {
+        logout() {
+            localStorage.clear();
+            this.$router.push("/Signup");
+        },
+    },
+};
+
 
 </script>
 

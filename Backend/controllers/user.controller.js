@@ -47,7 +47,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         isAdmin: user.isAdmin,
                         token: jwt.sign({ userId: user._id, isAdmin: user.isAdmin },
-                            'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
+                            process.env.KEY_TOKEN, { expiresIn: '24h' }
                         )
                     });
                 })
@@ -58,7 +58,7 @@ exports.login = (req, res, next) => {
 
 exports.getOneUser = (req, res, next) => { // récupération d'un seul user
     User.findOne({
-            where: { _id: req.params.id },
+            where: { id: req.params.id },
             include: Publication,
         })
         .then(user => res.status(200).json(user))
@@ -67,12 +67,12 @@ exports.getOneUser = (req, res, next) => { // récupération d'un seul user
 
 exports.deleteUser = (req, res, next) => {
     User.findOne({
-            where: { _id: Number(req.params._id) },
+            where: { id: Number(req.params._id) },
         })
         .then((user) => {
 
-            if (user._id === req.token.userId || req.token.isAdmin === true) {
-                User.destroy({ where: { _id: req.params._id } })
+            if (user.id === req.userId || req.isAdmin === true) {
+                User.destroy({ where: { id: req.params.id } })
                     .then(() => res.status(200).json({ message: "Profil supprimé !" }))
                     .catch((error) => res.status(400).json({ error }));
             } else {
@@ -93,7 +93,7 @@ exports.getAllUsers = (req, res, next) => { // récuprération de tout les users
 };
 
 exports.modifyUser = (req, res) => {
-    User.update(updatedUser, { where: { _id: req.params.id } })
+    User.update(updatedUser, { where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié avec succès' }))
         .catch(error => res.status(400).json({ message: 'Impossible de modifier cet utilisateur', error }));
 

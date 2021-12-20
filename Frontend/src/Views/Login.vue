@@ -13,7 +13,7 @@
         <div class="form_signup">
 
             <label for="inputEmail"> Email: </label>
-            <input class="form-signup" type="text" id="inputEmail" aria-describedby="inputEmailHelp" placeholder="Votre email">
+            <input class="form-signup" type="text" v-model="dataLogin.email" id="inputEmail" aria-describedby="inputEmailHelp" placeholder="Votre email">
            
 
         </div>
@@ -21,12 +21,12 @@
         <div class="form_signup">
 
             <label for="inputPassword">Mot de passe: </label>
-            <input class="form-sign" type="text" id="inputPassword" aria-describedby="inputPassword" placeholder="Mot de passe">
+            <input class="form-sign" type="text"  v-model="dataLogin.password" id="inputPassword" aria-describedby="inputPassword" placeholder="Mot de passe">
             
 
         </div>
 
-        <button type="submit" class="bouton"><router-link class="router-link" to="./WallGroupomania"> Connecter </router-link></button>
+        <button type="submit" @click.prevent="logIn" class="bouton" value="envoyer">Se connecter</button>
         </form>
         </section>
     </main>
@@ -34,9 +34,46 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
 export default {
-    name: 'Login' 
+    name: "Signin",
+    data() {
+        return {
+            dataLogin: {
+                email: null,
+                password: null,
+            },
+            msg: "",
+        };
+    },
+    computed: {
+        ...mapState(["user"]),
+    },
+   
+     methods: {
+        logIn() {
+            if (
+                this.dataLogin.email !== null ||
+                this.dataLogin.password !== null
+            ) {
+                axios
+                    .post(
+                        "http://localhost:3000/api/user/login",
+                        this.dataLogin
+                    )
+                    .then((response) => {
+                        localStorage.setItem("token", response.data.token);
+                        location.replace(location.href ="/WallGroupomania");
+                    })
+                    .catch((error) => console.log(error));
+            } else {
+                console.log("Erreur est survenue !");
+            }
+        },
+    },
+};
         
     
-}
+
 </script>
