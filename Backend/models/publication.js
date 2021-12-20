@@ -8,13 +8,12 @@ const Publication = sequelize.define(
         user_id: DataTypes.INTEGER,
         content: DataTypes.STRING,
         image: DataTypes.STRING,
-    }, {}
+    }, { tableName: 'publication', }
 );
 
 Publication.associate = function(models) {
-    models.Publication.belongsTo(models.User, {
-        foreignKey: 'user_id'
-    })
+
+    models.Publication.belongTo(models.User);
 };
 
-return Publication;
+module.exports = Publication

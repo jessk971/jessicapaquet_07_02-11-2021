@@ -1,5 +1,4 @@
 const Publication = require('../models/publication');
-const { Sequelize, DataTypes } = require('sequelize');
 const User = require('../models/user');
 const fs = require('fs');
 
@@ -23,7 +22,7 @@ exports.getAllPublications = (req, res) => {
             order: [
                 ['updatedAt', 'DESC']
             ],
-            include: { model: User, attributes: ['username'] }
+            //include: { model: User, attributes: ['username'] }
         })
         .then(publications => res.status(200).json(publications))
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher toutes les publications', error }));
@@ -36,25 +35,42 @@ exports.getOnePublication = (req, res) => {
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher cette publication', error }));
 }
 
-exports.modifyPublication = (req, res, next) => {
-    const publicationObject = req.file ? {
-        ...JSON.parse(req.body.publication),
-        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : {...req.body };
-    Publication.update({ _id: req.params.id }, {...publicationObject, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Publication modifiée !' }))
-        .catch(error => res.status(400).json({ error }));
-};
+exports.modifyPublication = (req, res) => {
+    let updatedPublication = {
+        content: req.body.content,
+    }
+    if (req.file) {
+        updatedPublication["image"] = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    }
+    Publication.update(updatedPublication, { where: { _id: req.params.id, user_id: req.body.user_id } })
+        .then(() => res.status(200).json({ message: 'Publication modifiée avec succès' }))
+        .catch(error => res.status(400).json({ message: 'Impossible de modifier cette publication', error }));
+}
 
 exports.deletePublication = (req, res, next) => {
-    Publication.findOne({ _id: req.params.id }) // on identifie la sauce 
-        .then(publication => {
-            const filename = publication.image.split('/images/')[1]; // récupération url de l'image 
-            fs.unlink(`images/${filename}`, () => { // supprimer du server 
-                Publication.deleteOne({ _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'Publication supprimée !' }))
-                    .catch(error => res.status(400).json({ error }));
-            });
+    Publication.findOne({
+            where: { _id: req.params.id },
         })
-        .catch(error => res.status(500).json({ error }));
+        .then((publication) => {
+
+            if (user._id === req.token.userId || req.token.isAdmin === true) {
+                if (publication.image) {
+                    const filename = post.image.split("/images/")[1];
+                    fs.unlink(`./images/${filename}`, () => {
+                        Publication.destroy({ where: { _id: req.params.id } })
+                            .then(() => res.status(200).json({ message: "Publication supprimée !" }))
+                            .catch((error) => res.status(400).json({ error }));
+                    });
+                } else {
+                    Publication.destroy({ where: { _id: req.params.id } })
+                        .then(() => res.status(200).json({ message: "Publication supprimée !" }))
+                        .catch((error) => res.status(400).json({ error }));
+                }
+            } else {
+                res.status(401).json({
+                    error: "Vous ne disposez pas des droits pour supprimer cette publication !",
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({ error: "delete err " + error }));
 };

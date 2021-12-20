@@ -41,7 +41,20 @@ exports.getOneComment = (req, res) => {
 
 exports.deleteComment = (req, res) => {
 
-    Comment.destroy({ where: { _id: req.params.id, user_id: req.body.user_id, post_id: req.params.post_id, } })
-        .then(() => res.status(200).json({ message: 'Commentaire supprimé avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de supprimer ce commentaire', error }))
-}
+    Comment.findOne({
+            where: { _id: req.params.id },
+        })
+        .then((comment) => {
+
+            if (comment.user_id == req.token.userId || req.token.isAdmin === true) {
+                Comment.destroy({ where: { _id: req.params.id } })
+                    .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
+                    .catch((error) => res.status(400).json({ error }));
+            } else {
+                res.status(401).json({
+                    error: "Vous ne disposez pas des droits pour supprimer ce commentaire !",
+                });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
+};

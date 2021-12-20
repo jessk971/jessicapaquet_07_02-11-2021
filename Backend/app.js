@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const path = require('path');
 const userRoutes = require('./routes/user.routes');
 const publicationRoutes = require('./routes/publication.routes');
+const commentRoutes = ('./routes/comment.routes');
 
 
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 
 app.use('/api/user', userRoutes)
 app.use('/api/publications', publicationRoutes);
+//app.use('api/comments', commentRoutes)
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
