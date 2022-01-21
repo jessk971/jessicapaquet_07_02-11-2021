@@ -23,10 +23,10 @@ const routes = [{
             import ("../Views/Login.vue"),
     },
     {
-        path: '/WallGroupomania',
-        name: 'WallGroupomania',
+        path: '/WallPublications',
+        name: 'WallPublications',
         component: () =>
-            import ("../Views/WallGroupomania.vue"),
+            import ("../Views/WallPublications.vue"),
     }
 ]
 Vue.use(VueRouter)

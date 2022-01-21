@@ -1,5 +1,8 @@
 <template>
-    <section class="home">
+<section>
+<NavBar /> 
+    <div class="home">
+     
 <div class="home-container">
     <div class="home-presentation">
         <h1>Bienvenue sur Groupomania !</h1>
@@ -7,13 +10,20 @@
 
     </div>
 </div>
-    </section>
+    </div>
+</section>
 </template>
 
 
 <script>
+
+import NavBar from "../components/NavBar.vue"
+
 export default {
     name: "Home",
+    components: {
+        NavBar,
+    }
     
 };
 </script>
@@ -36,6 +46,7 @@ export default {
     font-style: oblique;
     font-weight: 900;
 }
+
 
 .home-presentation h1 {
     margin-top: 0;

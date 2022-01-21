@@ -10,24 +10,14 @@
         <div class="nav-list">
 <div class="nav-log">
 
-    <a class="button-signup">
+    <a  v-if="status != 'login'" class="button-signup">
         <router-link to="/Signup">S'inscrire</router-link>
     </a>
 
-<a class="button-login">
+<a  v-if="status != 'login'" class="button-login">
     <router-link to="/Login">Se connecter</router-link>
 </a>
 
-
-<a v-if="status == 'login'" class="button-publication">
-    <router-link to="/WallGroupomania">File d'actualité</router-link>
-</a>
-
-<a v-if="status == 'login'" class="button-user">
-<router-link to="/Profil">Mon compte</router-link>
-</a>
-
-<a v-if="status == 'login'" class="button-logout" @click="logout()" >Se déconnecter</a>
 </div>
         </div>
     </div>
@@ -41,6 +31,12 @@
 export default {
 
     name: "NavBar",
+
+     mounted: function() {
+            if (this.$store.state.user.userId != -1) {
+                this.$store.commit('SET_STATUS', 'login')
+            }
+        },
 
       methods: {
         logout() {
