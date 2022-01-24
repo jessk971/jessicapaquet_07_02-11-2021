@@ -34,6 +34,14 @@ const routes = [{
         name: 'CreatePublication',
         component: () =>
             import ("../components/CreatePublication.vue"),
+    },
+
+    {
+        path: '/Profil',
+        name: 'Profil',
+        component: () =>
+            import ("../Views/Profil.vue"),
+
     }
 ]
 Vue.use(VueRouter)

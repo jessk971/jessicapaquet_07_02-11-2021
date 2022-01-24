@@ -32,7 +32,7 @@
 
 <h1> CONNECTEZ-VOUS </h1>
         </div>
-
+<div class="formLogin">
         <form>
 
         <div class="form_signup">
@@ -53,6 +53,7 @@
 
         <button type="submit" @click.prevent="logIn" class="bouton" value="envoyer"><router-link to="WallPublications">Se connecter</router-link></button>
         </form>
+</div>
         </section>
     </main>
         

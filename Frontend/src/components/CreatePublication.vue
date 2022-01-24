@@ -5,14 +5,14 @@
 <form @submit.prevent="createPublication">
 
        <div class="created">
-           <label for="content">Quoi de neuf?</label>
+           <label for="content">Quoi de neuf ?</label>
            <textarea class="textarea" v-model="contentPublication" placeholder="Entrez le texte ici ..."></textarea>
 
-       </div>/
+       </div>
        <div class="uploadImg">
            <label for="media">
            <input type="file" @change="uploadImg" accept="image/png, image/jpeg, image/jpg, image/gif" id="media" name="media">
-           <i class="fas fa-upload"></i>
+           
           
            </label>
        </div>
@@ -41,7 +41,7 @@ export default {
 <style>
 
 .container form { 
-display: flex;
+    display: flex;
     flex-wrap: wrap;
     background-color: white;
     border: solid transparent;
@@ -75,6 +75,10 @@ margin-bottom: 1em;
 
     button {
         margin-top: 0;
+    }
+
+    .uploadImg input {
+        margin-left: 1.2em ;
     }
 
 </style>
