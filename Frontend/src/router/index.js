@@ -27,6 +27,13 @@ const routes = [{
         name: 'WallPublications',
         component: () =>
             import ("../Views/WallPublications.vue"),
+    },
+
+    {
+        path: '/CreatePublication',
+        name: 'CreatePublication',
+        component: () =>
+            import ("../components/CreatePublication.vue"),
     }
 ]
 Vue.use(VueRouter)
