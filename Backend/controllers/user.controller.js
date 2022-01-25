@@ -44,9 +44,9 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         username: user.username,
-                        userId: user._id,
+                        userId: user.id,
                         isAdmin: user.isAdmin,
-                        token: jwt.sign({ userId: user._id, isAdmin: user.isAdmin },
+                        token: jwt.sign({ userId: user.id, isAdmin: user.isAdmin },
                             process.env.KEY_TOKEN, { expiresIn: '24h' }
                         )
                     });
@@ -67,7 +67,7 @@ exports.getOneUser = (req, res, next) => { // récupération d'un seul user
 
 exports.deleteUser = (req, res, next) => {
     User.findOne({
-            where: { id: Number(req.params._id) },
+            where: { id: Number(req.params.id) },
         })
         .then((user) => {
 

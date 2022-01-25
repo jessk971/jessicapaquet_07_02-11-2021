@@ -64,7 +64,7 @@ export default {
      methods: {
         deleteUser(user) {
             axios
-                .delete("http://localhost:3000/api/users/" + user.id, {
+                .delete("http://localhost:3000/api/user/id/" + user.id, {
                     headers: { Authorization: "Bearer " + localStorage.token },
                 })
                 .then((response) => console.log(response))

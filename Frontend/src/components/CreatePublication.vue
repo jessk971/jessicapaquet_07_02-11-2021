@@ -4,9 +4,11 @@
 
 <form @submit.prevent="createPublication">
 
+    
+
        <div class="created">
            <label for="content">Quoi de neuf ?</label>
-           <textarea class="textarea" v-model="contentPublication" placeholder="Entrez le texte ici ..."></textarea>
+           <textarea class="textarea" v-model="content" placeholder="Entrez le texte ici ..."></textarea>
 
        </div>
        <div class="uploadImg">
@@ -17,6 +19,7 @@
            </label>
        </div>
            <button type="submit" class="btn" @submit.prevent="sendFile()">Publier</button>
+    
            </form>
 
    </section> 
@@ -32,10 +35,13 @@ export default {
     name: 'CreatePublication', 
     components: {
         NavBarTwo,
-    }
+    },
+    
+     
+     
         
     
-}
+};
 </script>
 
 <style>

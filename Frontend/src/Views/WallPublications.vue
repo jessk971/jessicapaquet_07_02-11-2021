@@ -38,7 +38,8 @@
 
 <script>
 import Comments from "../components/Comments.vue";
-import NavBarTwo from "../components/NavBarTwo.vue"
+import NavBarTwo from "../components/NavBarTwo.vue";
+//import axios from "axios"
 export default {
     name: "WallPublications",
     components: {
@@ -54,8 +55,9 @@ export default {
             user_id:"",
             comments:[],
             publication:[]
-        }
-    }
+        };
+    },
+  
 
 };
 </script>

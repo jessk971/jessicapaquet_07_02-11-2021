@@ -11,11 +11,11 @@
         <div class="nav-list">
 <div class="nav-log">
 
-    <a  v-if="status != 'login'" class="button-signup">
+    <a class="button-signup">
         <router-link to="/Signup">S'inscrire</router-link>
     </a>
 
-<a  v-if="status != 'login'" class="button-login">
+<a class="button-login">
     <router-link to="/Login">Se connecter</router-link>
 </a>
 
@@ -105,7 +105,7 @@ export default {
                     .then((response) => {
                         console.log(response);
                        
-                        location.replace(location.origin);
+                        location.href = '/WallPublications';
 
                     })
                     .catch((error) => console.log(error));
