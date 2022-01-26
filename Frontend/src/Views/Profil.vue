@@ -77,12 +77,10 @@ export default {
       mounted() {
 axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
         .then(response => {
-            let dataProfil = JSON.parse(response.data);
-            this.user.username = dataProfil[0].username;
-            this.user.email = dataProfil[0].email;
-            this.user.isAdmin = dataProfil[0].isAdmin;
-            this.user.createdAt = dataProfil[0].createdAt;
+            
+            this.user = response.data.user;
         })
+        
         .catch(error => {
             console.log("Impossible de traiter les données du profil ! >" + error);
         })

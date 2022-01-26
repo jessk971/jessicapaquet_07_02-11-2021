@@ -52,7 +52,7 @@
         <div class="form_signup">
 
             <label for="inputPassword">Mot de passe: </label>
-            <input class="form-signup" type="text"  v-model="password" id="inputPassword" aria-describedby="inputPassword" placeholder="Mot de passe">
+            <input class="form-signup" type="password"  v-model="password" id="inputPassword" aria-describedby="inputPassword" placeholder="Mot de passe">
             
 
         </div>
