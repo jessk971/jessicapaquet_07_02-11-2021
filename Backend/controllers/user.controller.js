@@ -56,13 +56,21 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error: "sql" }));
 };
 
-exports.getOneUser = (req, res, next) => { // récupération d'un seul user
+exports.getOneUser = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
     User.findOne({
-            where: { id: req.params.id },
-            include: Publication,
+            where: {
+                id: userId,
+            },
         })
-        .then(user => res.status(200).json(user))
-        .catch(error => res.status(404).json({ error }))
+        .then((user) => res.status(200).json({
+            user
+        }))
+        .catch((err) => res.status(401).json({
+            err
+        }));
 };
 
 exports.deleteUser = (req, res, next) => {

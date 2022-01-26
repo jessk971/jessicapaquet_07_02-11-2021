@@ -31,6 +31,12 @@
         <div class="title-login">
 
 <h1> CONNECTEZ-VOUS </h1>
+
+ <p v-if="email.length >= 5 && password.length >= 5">
+            <ul>
+                <li v-for="(error, ok) in errors" v-bind:key="ok">{{ errors[ok] }}</li>
+            </ul>
+        </p>
         </div>
 <div class="formLogin">
         <form>
@@ -107,8 +113,9 @@ import axios from 'axios'
                   alert('Mot de passe incorrect')
                   this.userError = true 
                 })
-         }}
+            }
          }
+     }
      
     
     

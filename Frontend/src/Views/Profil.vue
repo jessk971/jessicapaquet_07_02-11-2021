@@ -9,6 +9,8 @@
     <div class="infosUsername">
 
     <h2>Bienvenue {{ user.username  }} !</h2>
+    <p v-if="user.isAdmin == 0">Utilisateur</p>
+    <p v-if="user.isAdmin == 1">Administrateur</p>
 
     </div>
 
@@ -28,7 +30,7 @@
     </div>
 <div class="button-clear">
 
-    <button class="delete" @click="deleteUser(user)">Supprimer le profil</button>
+    <button class="delete" @click="deleteUser">Supprimer le profil</button>
 
 </div>
 
@@ -47,33 +49,47 @@ export default {
     },
     data() {
         return {
-            user:"",
-        };
-
-
+            user: {
+                username: "",
+                email: "",
+                createdAt: "",
+                isAdmin: ""
+            }
+        }
     },
-    created() {
-        axios
-            .get("http://localhost:3000/api/user", {
-                headers: { Authorization: "Bearer " + localStorage.token },
+  
+    methods: {
+        deleteUser() {
+            axios.delete("http://localhost:3000/api/user/users", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+            .then(response => {
+                let rep = JSON.parse(response.data);
+                console.log(rep);
+                localStorage.clear();
+                this.$router.push('/Signup');
+                location.reload();
             })
-            .then((response) => (this.user = response.data.user))
-            .catch((err) => console.log(err));
+            .catch(error => {
+                console.log(error);
+                this.msg = error  
+            })
+        }
     },
+      mounted() {
+axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+        .then(response => {
+            let dataProfil = JSON.parse(response.data);
+            this.user.username = dataProfil[0].username;
+            this.user.email = dataProfil[0].email;
+            this.user.isAdmin = dataProfil[0].isAdmin;
+            this.user.createdAt = dataProfil[0].createdAt;
+        })
+        .catch(error => {
+            console.log("Impossible de traiter les données du profil ! >" + error);
+        })
+    }
 
-     methods: {
-        deleteUser(user) {
-            axios
-                .delete("http://localhost:3000/api/user/id/" + user.id, {
-                    headers: { Authorization: "Bearer " + localStorage.token },
-                })
-                .then((response) => console.log(response))
-                .catch((err) => console.log(err));
-            localStorage.clear();
-            this.$router.push("/Signup");
-        },
-    },
-        
+
+      
     
 }
 </script>

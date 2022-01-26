@@ -1,10 +1,9 @@
 <template>
    <section class="container">
        <NavBarTwo />
-
-<form @submit.prevent="createPublication">
-
-    
+ <div class="publications" v-for="publication in publications" :key="publication.content">
+ </div>
+<form>
 
        <div class="created">
            <label for="content">Quoi de neuf ?</label>
@@ -21,7 +20,7 @@
            <button type="submit" class="btn" @submit.prevent="sendFile()">Publier</button>
     
            </form>
-
+ 
    </section> 
 
 </template>
@@ -36,6 +35,25 @@ export default {
     components: {
         NavBarTwo,
     },
+    data() {
+        return {
+            user_id: "",
+            user:"",
+            id:"",
+            content: "",
+            image:"",
+            publication: [],
+            publications: []
+
+
+        }
+        
+    },
+    methods: {
+        sendFile() {
+            
+        }
+    }
     
      
      
