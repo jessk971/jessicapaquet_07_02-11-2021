@@ -74,20 +74,20 @@ exports.getOneUser = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
     User.findOne({
-            where: { id: Number(req.params.id) },
+            where: { id: userId },
         })
         .then((user) => {
 
-            if (user.id === req.userId || req.isAdmin === true) {
-                User.destroy({ where: { id: req.params.id } })
-                    .then(() => res.status(200).json({ message: "Profil supprimé !" }))
-                    .catch((error) => res.status(400).json({ error }));
-            } else {
-                res.status(401).json({
-                    error: "Vous ne disposez pas des droits pour supprimer ce profil !",
-                });
-            }
+
+            User.destroy({ where: { id: userId } })
+                .then(() => res.status(200).json({ message: "Profil supprimé !" }))
+                .catch((error) => res.status(400).json({ error }));
+
+
         })
         .catch((error) => res.status(500).json({ error: "deleteUser" + error }));
 };

@@ -59,21 +59,22 @@ export default {
     },
   
     methods: {
-        deleteUser() {
-            axios.delete("http://localhost:3000/api/user/users", {headers: {Authorization: 'Bearer ' + localStorage.token}})
-            .then(response => {
-                let rep = JSON.parse(response.data);
-                console.log(rep);
-                localStorage.clear();
-                this.$router.push('/Signup');
-                location.reload();
-            })
-            .catch(error => {
-                console.log(error);
-                this.msg = error  
-            })
+       deleteUser(user) {
+                if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
+                   axios.delete("http://localhost:3000/api/user/delete/" + user.id, {
+                    headers: { Authorization: "Bearer " + localStorage.token },
+                })
+                .then((response) => console.log(response))
+                .catch((err) => console.log(err));
+                
+            localStorage.clear();
+            this.$router.push("/Signup");
         }
+    }, 
     },
+            
+    
+
       mounted() {
 axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
         .then(response => {
@@ -89,7 +90,7 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
 
       
     
-}
+};
 </script>
 
 <style>
