@@ -2,7 +2,7 @@
    <section class="container">
        <NavBarTwo />
  
-<form>
+<form v-on:submit.prevent="createPublication">
 
        <div class="created">
            <label for="content">Quoi de neuf {{ user.username}} ?</label>
@@ -16,7 +16,7 @@
           
            </label>
        </div>
-           <button type="submit" class="btn" @submit.prevent="sendFile()">Publier</button>
+           <button type="submit" class="btn">Publier</button>
     
            </form>
  
@@ -56,12 +56,12 @@ export default {
         this.publication = event.target.files[0];
         console.log(this.publication);
     },
-        sendFile() {
-            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+        createPublication() {
+            axios.post ("http://localhost:3000/api/publications", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((response) => {
           console.log(response);
           this.publication = response.data.publication;
-          
+          location.reload();
         })
         .catch((error) => console.log(error));
     },

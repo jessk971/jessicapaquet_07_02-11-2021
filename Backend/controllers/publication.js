@@ -35,7 +35,7 @@ exports.getAllPublications = (req, res) => {
             order: [
                 ['updatedAt', 'DESC']
             ],
-            //include: { model: User, attributes: ['username'] }
+            include: { model: User, attributes: ['username'] }
         })
         .then(publications => res.status(200).json(publications))
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher toutes les publications', error }));
