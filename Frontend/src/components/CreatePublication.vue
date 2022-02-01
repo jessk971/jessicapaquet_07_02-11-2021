@@ -1,18 +1,17 @@
 <template>
    <section class="container">
        <NavBarTwo />
- <div class="publications" v-for="publication in publications" :key="publication.content">
- </div>
+ 
 <form>
 
        <div class="created">
-           <label for="content">Quoi de neuf ?</label>
+           <label for="content">Quoi de neuf {{ user.username}} ?</label>
            <textarea class="textarea" v-model="content" placeholder="Entrez le texte ici ..."></textarea>
 
        </div>
        <div class="uploadImg">
            <label for="media">
-           <input type="file" @change="uploadImg" accept="image/png, image/jpeg, image/jpg, image/gif" id="media" name="media">
+           <input type="file"  @change="uploadImg" accept="image/png, image/jpeg, image/jpg, image/gif" id="media" name="media">
            
           
            </label>
@@ -29,7 +28,7 @@
 <script>
 
 import NavBarTwo from "../components/NavBarTwo.vue"
-//import axios from 'axios'
+import axios from 'axios'
 export default {
     name: 'CreatePublication', 
     components: {
@@ -37,27 +36,49 @@ export default {
     },
     data() {
         return {
-            user_id: "",
-            user:"",
-            id:"",
-            content: "",
-            image:"",
-            publication: [],
-            publications: []
+            publication: {
+                content:"",
+                media:"",
+                image:"",
+                post_id:"",
+                userId:""
+            },
+            user: {
+                username:""
+            }
 
-
+            
         }
         
     },
     methods: {
+        uploadImg(event) {
+        this.publication = event.target.files[0];
+        console.log(this.publication);
+    },
         sendFile() {
-            
-        }
-    }
+            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+            .then((response) => {
+          console.log(response);
+          this.publication = response.data.publication;
+          
+        })
+        .catch((error) => console.log(error));
+    },
     
-     
-     
+     mounted() {
+        axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+        .then(response => {
+            
+            this.user = response.data.user;
+        })
         
+        .catch(error => {
+            console.log("Impossible de traiter les données du profil ! >" + error);
+        })
+    }
+}
+      
     
 };
 </script>

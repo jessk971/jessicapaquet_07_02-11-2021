@@ -30,7 +30,7 @@
     </div>
 <div class="button-clear">
 
-    <button class="delete" @click="deleteUser">Supprimer le profil</button>
+    <button class="delete" @click="deleteUser(user)">Supprimer le profil</button>
 
 </div>
 
@@ -66,7 +66,7 @@ export default {
                 })
                 .then((response) => console.log(response))
                 .catch((err) => console.log(err));
-                
+
             localStorage.clear();
             this.$router.push("/Signup");
         }

@@ -5,6 +5,18 @@ const fs = require('fs');
 
 
 exports.createPublication = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
+
+    User.findOne({ where: { id: userId } })
+        .then(user => {
+            if (user == null) {
+                return res.status(400).json({ error: 'Utilisateur non trouvé !' });
+            }
+        })
+        .catch(err => res.status(500).json({ err }));
+
     const publication = {
         user_id: req.body.user_id,
         content: req.body.content,
@@ -15,6 +27,7 @@ exports.createPublication = (req, res) => {
     Publication.create(publication)
         .then(() => res.status(201).json({ message: 'Publication créé avec succès' }))
         .catch(error => res.status(400).json({ message: 'Impossible de créer cette publication', error }));
+
 }
 
 exports.getAllPublications = (req, res) => {
