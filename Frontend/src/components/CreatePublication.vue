@@ -57,7 +57,7 @@ export default {
         console.log(this.publication);
     },
         createPublication() {
-            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.token}})
             .then((response) => {
           console.log(response);
           this.publication = response.data.publication;
@@ -66,6 +66,7 @@ export default {
         .catch((error) => console.log(error));
     },
     
+    },
      mounted() {
         axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
         .then(response => {
@@ -77,7 +78,7 @@ export default {
             console.log("Impossible de traiter les données du profil ! >" + error);
         })
     }
-}
+
       
     
 };

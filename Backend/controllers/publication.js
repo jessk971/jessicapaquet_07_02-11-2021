@@ -5,6 +5,7 @@ const fs = require('fs');
 
 
 exports.createPublication = (req, res, ) => {
+
     const publication = {
         user_id: req.body.user_id,
         content: req.body.content,
@@ -12,8 +13,8 @@ exports.createPublication = (req, res, ) => {
     };
 
     Publication.create(publication)
-        .then(() => res.status(201).json({ message: 'Post créé avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de créer ce post', error }));
+        .then(() => res.status(201).json({ message: 'Publication créé avec succès' }))
+        .catch(error => res.status(400).json({ message: 'Impossible de créer cette publication', error }));
 
 
 };

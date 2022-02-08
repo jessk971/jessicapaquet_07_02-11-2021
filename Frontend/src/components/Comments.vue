@@ -31,12 +31,15 @@ import axios from "axios";
 export default {
     name: "Comments", 
         
-    props: [
-      "publication", "comment","user"
-  ],
+   
   data(){
         return{
             comments:[],
+            publication:[],
+            user:"",
+            content:"",
+            username:""
+
         }
     },
 
@@ -71,7 +74,7 @@ export default {
             else{
                 commentate.addEventListener('keydown', (e) => {
                     if(e.key === 'Enter') {
-                        axios.p('http://localhost:3000/api/comments/' + this.publication.id ,{message: this.message},{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+                        axios.post('http://localhost:3000/api/comments/' + this.publication.id ,{message: this.message},{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
                         .then((response)=>{
                             console.log(response)
                             alert('Commentaire posté')
