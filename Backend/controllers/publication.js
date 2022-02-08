@@ -4,31 +4,19 @@ const fs = require('fs');
 
 
 
-exports.createPublication = (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
-    const userId = decodedToken.userId;
-
-    User.findOne({ where: { id: userId } })
-        .then(user => {
-            if (user == null) {
-                return res.status(400).json({ error: 'Utilisateur non trouvé !' });
-            }
-        })
-        .catch(err => res.status(500).json({ err }));
-
+exports.createPublication = (req, res, ) => {
     const publication = {
         user_id: req.body.user_id,
         content: req.body.content,
         image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-
     };
 
     Publication.create(publication)
-        .then(() => res.status(201).json({ message: 'Publication créé avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de créer cette publication', error }));
+        .then(() => res.status(201).json({ message: 'Post créé avec succès' }))
+        .catch(error => res.status(400).json({ message: 'Impossible de créer ce post', error }));
 
-}
+
+};
 
 exports.getAllPublications = (req, res) => {
     Publication.findAll({

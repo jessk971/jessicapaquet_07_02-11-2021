@@ -8,7 +8,7 @@
             
             <div class="user-publication">
                 <div class="utilisateurs">
-                    <p class="username">Publié par {{ publication.User.username }}</p>
+                    <p class="username">Publié par {{ publication.user.username }}</p>
                     <p class="date">Posté le  {{ publication.createdAt.split(" ")[0] }}
                     {{ publication.updatedAt }}</p>
                 </div>

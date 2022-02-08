@@ -57,7 +57,7 @@ export default {
         console.log(this.publication);
     },
         createPublication() {
-            axios.post ("http://localhost:3000/api/publications", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((response) => {
           console.log(response);
           this.publication = response.data.publication;
