@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const User = require('../models/user.js');
-const Publication = require('../models/publication');
+
 
 
 User.findAll()

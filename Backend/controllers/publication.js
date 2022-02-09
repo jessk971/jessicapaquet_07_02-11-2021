@@ -9,6 +9,7 @@ exports.createPublication = (req, res, ) => {
     const publication = {
         user_id: req.body.user_id,
         content: req.body.content,
+
         image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     };
 

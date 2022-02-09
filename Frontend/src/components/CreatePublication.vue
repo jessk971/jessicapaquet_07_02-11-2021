@@ -6,7 +6,7 @@
 
        <div class="created">
            <label for="content">Quoi de neuf {{ user.username}} ?</label>
-           <textarea class="textarea" v-model="content" placeholder="Entrez le texte ici ..."></textarea>
+           <textarea class="textarea" v-model="publication.content" placeholder="Entrez le texte ici ..."></textarea>
 
        </div>
        <div class="uploadImg">
@@ -38,30 +38,41 @@ export default {
         return {
             publication: {
                 content:"",
-                media:"",
                 image:"",
-                post_id:"",
-                userId:""
+                 userId:""
+                
             },
+            file:{},
+            
             user: {
-                username:""
-            }
-
+                username:"",
+               
+            },  
+            
+        
             
         }
         
     },
     methods: {
         uploadImg(event) {
-        this.publication = event.target.files[0];
-        console.log(this.publication);
+        this.file = event.target.files[0];
+        console.log(this);
     },
         createPublication() {
-            axios.post ("http://localhost:3000/api/publications/create", { headers: { "Authorization":"Bearer " + localStorage.token}})
+            
+            var formData = new FormData();
+            formData.append("image", this.file);
+            formData.append("content", this.publication.content);
+            formData.append("user_id", this.user.id);
+            if (formData.get("image") !== null && formData.get("content") !== null)
+
+            axios.post ("http://localhost:3000/api/publications/create", formData, { headers: { "Authorization":"Bearer " + localStorage.token}})
             .then((response) => {
+                alert("Votre publication à bien été créée !")
           console.log(response);
           this.publication = response.data.publication;
-          location.reload();
+          window.location.reload();
         })
         .catch((error) => console.log(error));
     },
