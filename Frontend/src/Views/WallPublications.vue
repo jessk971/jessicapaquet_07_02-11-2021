@@ -6,12 +6,12 @@
 
 <Create :submit="onSubmit" />
 
-        <div v-for="publication in publications" :key="publication.id" class="publication">
+        <div class="publicationForm">
             
             <div class="user-publication">
                 <div class="utilisateurs">
-                    <p class="username">Publié par {{ publication.user.username }}</p>
-                    <p class="date">Posté le  {{ publication.createdAt.split(" ")[0] }}
+                    <p class="username">Publié par {{ user.username }}</p>
+                    <p class="date">Posté le  {{ publication.createdAt }}
                     {{ publication.updatedAt }}</p>
                 </div>
                 <p class="publication-content">{{ publication.content }}</p>
@@ -28,7 +28,7 @@
       </div>
                 </div>
                 <div class="allcomments">
-        <Comments :user="user" :publication="publication" />
+      // Comments :user="user" :publication="publication" 
       </div>
             </div>
         </div>
@@ -39,18 +39,19 @@
 </template>
 
 <script>
-import Comments from "../components/Comments.vue";
+//import Comments from "../components/Comments.vue";
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios"
 export default {
     name: "WallPublications",
     components: {
         NavBarTwo,
-        Comments,
+        //Comments,
     },
     data(){
         return {
             user:"",
+            username:"",
             id:"",
             content:"",
             image:"",
@@ -70,16 +71,14 @@ export default {
 
     methods: {
 
-    loadPublications() {
+    getAllPublications() {
         axios.get ("http://locahost:3000/api/publications", { headers: { Authorization: "Bearer " + localStorage.token }, 
             })
-            .then((response) => {
-            console.log("publication", response.data);
-            this.publications = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            .then(response => {
+            let publications = JSON.parse(response.data);
+            this.allPublications = publications;
+            console.log(publications);
+        });
         },
 },
 
@@ -118,6 +117,23 @@ export default {
     padding-top: 1em;
     text-align: center;
 }
+
+.publicationForm { 
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border: solid transparent;
+    border-radius: 10px;
+    margin: auto;
+    width: 600px;
+    flex-direction: column;
+    padding-top: 2em;
+    line-height: 2.5em;
+    opacity: 0.9;
+    padding-bottom: 2em;
+    box-shadow: 4px 2px 2px rgb(77, 77, 77);
+    margin-top: 5%;
+    }
 
 
 </style>
