@@ -5,8 +5,9 @@
 
 <div class="userComment">
 
-    <p> {{ comment.username }}</p>
-    <p> {{ comment.content }}</p>
+    <p> {{ user.username }}</p>
+    <p> {{ publication.comment }}</p>
+    
 
 </div>
 
@@ -16,8 +17,8 @@
 
 <div class="button-comment">
 
-     <input class="coms" id="coms" v-model="msg" placeholder="Ajouter un commentaire..."> 
-     <button class="valider" @click="commentate">Commenter</button>
+     <input class="coms" id="coms" v-model="comment" placeholder="Ajouter un commentaire..."> 
+     <button class="valider" @click="commenter">Commenter</button>
 
     </div>
     </section>
@@ -37,18 +38,22 @@ export default {
             comments:[],
             publication:[],
             user:"",
-            content:"",
-            username:""
+        
+            username:"",
+            commentId:"",
+            comment:"",
+            user_id:"",
+            post_id:""
 
         }
     },
 
      methods:{  
 
-        startedComments(id){
-            axios.get('http://localhost:3000/api/comments/' + id ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+        startedComments(){
+            axios.get('http://localhost:3000/api/comments' + this.publication.id ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((response)=>{ 
-                this.comments = response.data.comments
+                this.comment = response.data.comment
             })
             .catch((error)=> { 
                 console.log(error)
@@ -66,34 +71,39 @@ export default {
                 console.log(error)
             })
         },
-        commentate(){
-            const commentate = document.getElementById('commentate');
-            if(!this.content == true){
-                alert('Veuillez remplir le champ pour commenter')
-            }
-            else{
-                commentate.addEventListener('keydown', (e) => {
-                    if(e.key === 'Enter') {
-                        axios.post('http://localhost:3000/api/comments/' ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
-                        .then((response)=>{
-                            console.log(response)
-                            alert('Commentaire posté')
-                            this.startedComments()
-                        })
-                        .catch((error)=> { 
-                            console.log(error)
-                        })
-                    }
-                    else{
-                        console.log('impossible de commenter')
-                    }
-                })
-            }
+        commenter(){
+            
+             var formData = new FormData();
+            formData.append("comment", this.comment);
+            formData.append("user_id", this.user.id);
+            formData.append("post_id", this.publication.id)
+                
+            axios.post ("http://localhost:3000/api/comments", formData, { headers: { "Authorization":"Bearer " + localStorage.token}})   
+           .then((response) => {
+                alert("Votre commentaire à bien été créée !")
+          console.log(response);
+          this.comment = response.data.comment;
+          window.location.reload();
+        })
+        .catch((error) => console.log(error));
+    
+            
         },
     },
     mounted(){
         this.startedComments();
+         axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+        .then(response => {
+            
+            this.user = response.data.user;
+        })
+        
+        .catch(error => {
+            console.log("Impossible de traiter les données du profil ! >" + error);
+        })
+    
     }
+
 }
 
 </script>
