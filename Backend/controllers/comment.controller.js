@@ -28,7 +28,7 @@ exports.getAllComments = (req, res) => {
 }
 
 exports.getOneComment = (req, res) => {
-    Comment.findOne({ where: { user_id: req.body.user_id, post_id: req.params.post_id, }, include: { model: User } })
+    Comment.findOne({ where: { user_id: req.body.id, post_id: req.params.id, }, include: { model: User } })
         .then(comment => {
             if (comment) {
                 res.status(200).json(comment)

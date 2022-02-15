@@ -45,8 +45,8 @@ export default {
 
      methods:{  
 
-        startedComments(){
-            axios.get('http://localhost:3000/api/comments/' + this.publication.id ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+        startedComments(id){
+            axios.get('http://localhost:3000/api/comments/' + id ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((response)=>{ 
                 this.comments = response.data.comments
             })
@@ -68,13 +68,13 @@ export default {
         },
         commentate(){
             const commentate = document.getElementById('commentate');
-            if(!this.message == true){
+            if(!this.content == true){
                 alert('Veuillez remplir le champ pour commenter')
             }
             else{
                 commentate.addEventListener('keydown', (e) => {
                     if(e.key === 'Enter') {
-                        axios.post('http://localhost:3000/api/comments/' + this.publication.id ,{message: this.message},{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+                        axios.post('http://localhost:3000/api/comments/' ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
                         .then((response)=>{
                             console.log(response)
                             alert('Commentaire posté')
