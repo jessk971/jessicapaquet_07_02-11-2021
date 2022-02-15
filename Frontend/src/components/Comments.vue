@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <section >
 
     <div v-for="comment in comments" :key='comment.id' class="comment" >
 
@@ -10,7 +10,7 @@
 
 </div>
 
-<div class="delete" @click="removeComment(comment.id)" v-if="user.userId == comment.userId || user.isAdmin"><i class="fas fa-trash-alt"></i></div>
+<button class="delete" @click="removeComment(comment.id)" v-if="user.userId == comment.userId || user.isAdmin">Supprimer</button>
 
     </div>
 
@@ -48,7 +48,7 @@ export default {
         startedComments(){
             axios.get('http://localhost:3000/api/comments/' + this.publication.id ,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((response)=>{ 
-                this.comments = response.data
+                this.comments = response.data.comments
             })
             .catch((error)=> { 
                 console.log(error)

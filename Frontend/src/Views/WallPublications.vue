@@ -27,8 +27,8 @@
         <button v-if="user.userId === publication.userId || user.isAdmin" @click="modifier(publication.id)">Modifier</button>
       </div>
                 </div>
-                <div class="allcomments">
-      // Comments :user="user" :publication="publication" 
+                <div class="allComments">
+     <Comments :user="user" :publication="publication" />
       </div>
             </div>
         </div>
@@ -39,59 +39,74 @@
 </template>
 
 <script>
-//import Comments from "../components/Comments.vue";
+import Comments from "../components/Comments.vue";
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios"
 export default {
     name: "WallPublications",
     components: {
         NavBarTwo,
-        //Comments,
+        Comments,
     },
     data(){
         return {
-            user:"",
+            user:{
             username:"",
-            id:"",
-            content:"",
-            image:"",
-            user_id:"",
-            comments:[],
+            },
             publication:[],
-            publications:[]
+                id:"",
+                content:"",
+                image:"", 
+                comments:[],
+                publications:[],
+                userId:"",
+            
+            
+            
+           
+            
         };
     },
   
     loadUser(){
-        axios.get ("http://localhost:3000/api/user", { headers: { Authorization: "Bearer " + localStorage.token },
+        axios.get ("http://localhost:3000/api/user/profil", { headers: { Authorization: "Bearer " + localStorage.token },
             })
-            .then((response) => (this.user = response.data.user))
-            .catch((err) => console.log(err));
+            .then(response => {
+            
+            this.user = response.data.user;
+        })
+            .catch(error => {
+            console.log("Impossible de traiter les données du profil ! " + error);
+        })
     },
 
     methods: {
 
+        
+
     getAllPublications() {
         axios.get ("http://locahost:3000/api/publications", { headers: { Authorization: "Bearer " + localStorage.token }, 
             })
-            .then(response => {
-            let publications = JSON.parse(response.data);
-            this.allPublications = publications;
-            console.log(publications);
-        });
+            
+             .then((response) => {
+                    console.log("publication", response.data);
+                    this.publication = response.data.publication;
+                    this.image = response.data.image
+                })
+        
         },
 },
 
     onSubmit() {
-            this.loadPublications();
+            this.getAllPublications();
         },
 
-    supprimer(id) { 
-        console.log(id);
-             axios.delete("http://localhost:3000/api/publications/"  + id , { headers: { Authorization: "Bearer " + localStorage.getItem("token")}})
+    supprimer(publication) { 
+        console.log(publication);
+             axios.delete("http://localhost:3000/api/publications/delete"  +publication.id , { headers: { Authorization: "Bearer " + localStorage.getItem("token")}})
             .then(() => {
              alert('la publication a bien été supprimé')
-             this.loadPublication();  
+             this.getAllPublications();  
         })
         .catch((error) => {
           console.log(error);
@@ -114,7 +129,7 @@ export default {
     font-weight: 900;
     font-size: 50px;
     margin-top: 0;
-    padding-top: 1em;
+    margin-bottom: 0;
     text-align: center;
 }
 
@@ -125,14 +140,36 @@ export default {
     border: solid transparent;
     border-radius: 10px;
     margin: auto;
-    width: 600px;
+    width: 50%;
     flex-direction: column;
     padding-top: 2em;
-    line-height: 2.5em;
+    
     opacity: 0.9;
     padding-bottom: 2em;
-    box-shadow: 4px 2px 2px rgb(77, 77, 77);
-    margin-top: 5%;
+    box-shadow: 4px 2px 2px rgb(77 77 77);
+    margin-top: 1em;
+    }
+
+    .modify {
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .allComments {
+        margin-top: 1em;
+    }
+
+    .user-publication { 
+        margin-left: 1em;
+    }
+    button {
+        margin-right: 1em;
+    }
+
+    .valider {
+        margin-left: 1em;
     }
 
 
