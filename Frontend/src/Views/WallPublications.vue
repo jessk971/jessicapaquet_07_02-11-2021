@@ -84,13 +84,13 @@ export default {
 
         
 
-    getAllPublications(publication) {
-        axios.get ("http://locahost:3000/api/publications" + publication.id, { headers: { Authorization: "Bearer " + localStorage.token }, 
+    getAllPublications() {
+        axios.get ("http://locahost:3000/api/publications" + this.publication.id, { headers: { Authorization: "Bearer " + localStorage.token }, 
             })
             
              .then((response) => {
                     console.log("publication", response.data);
-                    this.publication = response.data.publication;
+                    this.publication = response.data;
                     this.image = response.data.image
                 })
         
@@ -103,7 +103,7 @@ export default {
 
     supprimer(publication) { 
         console.log(publication);
-             axios.delete("http://localhost:3000/api/publications/delete"  +this.publication.id , { headers: { Authorization: "Bearer " + localStorage.getItem("token")}})
+             axios.delete("http://localhost:3000/api/publications/delete"  + publication.id , { headers: { Authorization: "Bearer " + localStorage.getItem("token")}})
             .then(() => {
              alert('la publication a bien été supprimé')
              this.getAllPublications();  
