@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db')
 
 
+
 const Publication = sequelize.define(
 
     'Publication', {
@@ -13,7 +14,13 @@ const Publication = sequelize.define(
 
 Publication.associate = function(models) {
 
-    models.Publication.belongTo(models.User);
-};
+    models.Publication.belongsTo(models.user, {
+        onDelete: 'cascade',
+        hooks: true,
+        foreignKey: { allowNull: false }
+    });
 
+    models.post.hasMany(models.comment);
+};
+sequelize.sync()
 module.exports = Publication
