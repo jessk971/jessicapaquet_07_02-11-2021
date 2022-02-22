@@ -25,7 +25,7 @@ exports.getAllPublications = (req, res) => {
         order: [
             ['updatedAt', 'DESC']
         ],
-        include: { model: User }
+        include: { model: User, attribute: 'username' }
     })
 
     .then(publications => res.status(200).json(publications))
@@ -52,29 +52,12 @@ exports.modifyPublication = (req, res) => {
 }
 
 exports.deletePublication = (req, res, next) => {
-    Publication.findOne({
-            where: { id: req.params.id },
-        })
-        .then((publication) => {
-
-            if (publication.userId === req.userId || req.isAdmin === true) {
-                if (publication.image) {
-                    const filename = post.image.split("/images/")[1];
-                    fs.unlink(`./images/${filename}`, () => {
-                        Publication.destroy({ where: { id: req.params.id } })
-                            .then(() => res.status(200).json({ message: "Publication supprimée !" }))
-                            .catch((error) => res.status(400).json({ error }));
-                    });
-                } else {
-                    Publication.destroy({ where: { id: req.params.id } })
-                        .then(() => res.status(200).json({ message: "Publication supprimée !" }))
-                        .catch((error) => res.status(400).json({ error }));
-                }
-            } else {
-                res.status(401).json({
-                    error: "Vous ne disposez pas des droits pour supprimer cette publication !",
-                });
-            }
-        })
-        .catch((error) => res.status(500).json({ error: "delete err " + error }));
+    Publication.findOne({ id: req.params.id })
+        .then(() =>
+            Publication.destroy({
+                where: { id: req.params.id }
+            })
+        )
+        .then(() => res.status(200).json({ message: 'Publication supprimée' }))
+        .catch(error => res.status(400).json({ error }))
 };

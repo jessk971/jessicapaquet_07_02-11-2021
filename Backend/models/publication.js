@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db')
-
+const User = require('../models/user')
 
 
 const Publication = sequelize.define(
@@ -12,15 +12,15 @@ const Publication = sequelize.define(
     }, { tableName: 'publication', }
 );
 
-Publication.associate = function(models) {
 
-    models.Publication.belongsTo(models.User, {
 
-        foreignKey: { allowNull: false }
-    });
+Publication.belongsTo(User, {
 
-    models.Publication.hasMany(models.Comment);
-};
+    foreignKey: "user_id"
+});
+
+
+
 sequelize.sync()
 
 module.exports = Publication

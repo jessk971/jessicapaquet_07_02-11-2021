@@ -3,47 +3,56 @@
     <NavBarTwo />
     <div id="wall">
       <h1 class="title-wall">Fil d'actualité</h1>
-
+<div v-for="publication in publications" :key="publication.id">
       <div class="publicationForm">
         <div class="user-publication">
           <div class="utilisateurs">
-            <p class="username">Publié par {{ user.username }}</p>
-            <p class="date">
-              Posté le {{ publication.createdAt }} {{ publication.updatedAt }}
-            </p>
+            <img class="anonymeUser" src="../assets/profil.png" width="100px" alt="photo de profil">
+
+            <div class="user-infos">
+            <p class="username"> {{ publication.User.username }}</p>
+            <p class="date"> {{ publication.createdAt }}</p>
+            </div>
           </div>
           <p class="publication-content">{{ publication.content }}</p>
 
           <div class="publication-img">
-            <img class="image" :src="publication.image" />
+            <img class="img"  :src="publication.image">
           </div>
           <div class="modify">
             <div
               class="button"
-              v-if="user.userId == publication.userId || user.isAdmin"
+             
             >
-              <button @click="supprimer(publication.id)">Supprimer</button>
+              <button v-if="publication.userId == user.id || user.isAdmin" @click="supprimer(publication.id)">Supprimer</button>
             </div>
             <div class="button">
               <button
                 v-if="user.userId === publication.userId || user.isAdmin"
                 @click="modifier(publication.id)"
-              >
-                Modifier
+              >Modifier
               </button>
             </div>
           </div>
-          <div class="allComments">
-            <Comments :user="user" :publication="publication" />
+          <div class="Comments">
+            <div class="createComment">
+          <Comments :user="user" :publication="publication" />
+
           </div>
+          <div class="AllComments">
+            <OneComment :user="user" :publication="publication"/>
         </div>
+          </div>
+      </div>
       </div>
     </div>
+  </div>
   </section>
 </template>
 
 <script>
 import Comments from "../components/Comments.vue";
+import OneComment from "../components/OneComment.vue";
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
 export default {
@@ -51,13 +60,15 @@ export default {
   components: {
     NavBarTwo,
     Comments,
+    OneComment
+    
   },
   data() {
     return {
       user: {
         username: "",
       },
-      publication: [],
+      
       id: "",
       content: "",
       image: "",
@@ -88,33 +99,35 @@ export default {
         })
 
         .then((response) => {
-          console.log("publication", response.data);
-          this.publication = response.data;
+          console.log("publications", response.data);
+          this.publications = response.data;
           this.image = response.data.image;
         });
     },
+    supprimer(id) {
+    console.log(id);
+    const post_id = this.publications.findIndex(
+                (publication) => publication.id === id
+            );
+            if (post_id !== -1) {
+                this.publications.splice(post_id, 1);
+                axios
+                    .delete("http://localhost:3000/api/publications/" + id, {
+                        headers: {
+                            Authorization:
+                                "Bearer " + localStorage.getItem("token"),
+                        },
+                    })
+                    .catch((error) => console.log(error));
+            }
+        },
+  
   },
   mounted() {
     this.getAllPublications();
   },
 
-  supprimer(publication) {
-    console.log(publication);
-    axios
-      .delete(
-        "http://localhost:3000/api/publications/delete" + publication.id,
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then(() => {
-        alert("la publication a bien été supprimé");
-        this.getAllPublications();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
+  
 };
 </script>
 
@@ -157,14 +170,50 @@ export default {
   margin-top: 1em;
 }
 
-.user-publication {
-  margin-left: 1em;
-}
+
 button {
   margin-right: 1em;
 }
 
 .valider {
   margin-left: 1em;
+}
+
+.img  {
+  width: 100%;
+  height: auto;
+}
+
+.utilisateurs { 
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border-bottom: solid grey;
+}
+
+.user-infos { 
+  margin-left: 1em;
+  
+}
+
+.user-infos .username {
+    font-size: x-large;
+    font-family: arial;
+    font-weight: 800;
+    margin-top: 0;
+}
+
+.anonymeUser { 
+  border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 1em;
+    border-bottom: solid grey;
+}
+
+.publication-content {
+  margin-left: 1em;
+  font-size: larger;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 </style>

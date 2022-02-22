@@ -5,8 +5,8 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 router.post('/create', auth, multer, publicationController.createPublication);
-router.get('/', auth, publicationController.getAllPublications);
-router.get('/:id', auth, publicationController.getOnePublication);
+router.get('/', auth, multer, publicationController.getAllPublications);
+router.get('/:id', auth, multer, publicationController.getOnePublication);
 router.put('/:id', auth, multer, publicationController.modifyPublication);
 router.delete('/:id', publicationController.deletePublication);
 

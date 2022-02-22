@@ -63,3 +63,7 @@ button:hover {
     font-size: larger;
     font-weight: 900;
 }
+
+img {
+    object-fit: cover;
+}

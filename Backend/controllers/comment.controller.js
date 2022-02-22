@@ -20,7 +20,7 @@ exports.getAllComments = (req, res) => {
             order: [
                 ['createdAt', 'ASC']
             ],
-            where: { post_id: req.params.post_id, },
+            where: { post_id: req.params.id, },
             include: { model: User }
         })
         .then(comments => res.status(200).json(comments))
