@@ -9,6 +9,7 @@ const sequelize = new Sequelize('groupomania', process.env.DB_NAME, process.env.
 
 });
 
+
 sequelize.authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch((err) => console.log('Unable to connect to the database:', err));

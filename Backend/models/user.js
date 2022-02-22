@@ -8,14 +8,15 @@ const User = sequelize.define(
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         isAdmin: DataTypes.BOOLEAN
-    }, {}
+    }, { tableName: 'users', }
 );
 
 User.associate = function(models) {
 
-    models.User.hasMany(models.publication);
-    models.post.hasMany(models.comment);
+    models.User.hasMany(models.Publication);
+    models.Publication.hasMany(models.Comment);
 };
+sequelize.sync()
 
 
 module.exports = User

@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="allComments">
-            //Comments :user="user" :publication="publication" /
+            <Comments :user="user" :publication="publication" />
           </div>
         </div>
       </div>
@@ -43,14 +43,14 @@
 </template>
 
 <script>
-//import Comments from "../components/Comments.vue";
+import Comments from "../components/Comments.vue";
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
 export default {
   name: "WallPublications",
   components: {
     NavBarTwo,
-    //Comments,
+    Comments,
   },
   data() {
     return {

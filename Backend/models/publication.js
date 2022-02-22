@@ -14,13 +14,13 @@ const Publication = sequelize.define(
 
 Publication.associate = function(models) {
 
-    models.Publication.belongsTo(models.user, {
-        onDelete: 'cascade',
-        hooks: true,
+    models.Publication.belongsTo(models.User, {
+
         foreignKey: { allowNull: false }
     });
 
-    models.post.hasMany(models.comment);
+    models.Publication.hasMany(models.Comment);
 };
 sequelize.sync()
+
 module.exports = Publication
