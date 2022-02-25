@@ -11,7 +11,7 @@
 
             <div class="user-infos">
             <p class="username"> {{ publication.User.username }}</p>
-            <p class="date"> {{ publication.createdAt }}</p>
+            <p class="date"> {{ publication.createdAt.split(' ')[0] }} {{ publication.createdAt.slice(11,16) }}</p>
             </div>
           </div>
           <p class="publication-content">{{ publication.content }}</p>
@@ -20,25 +20,26 @@
             <img class="img"  :src="publication.image">
           </div>
           <div class="modify">
-            <div
-              class="button"
-             
-            >
-              <button v-if="publication.userId == user.id || user.isAdmin" @click="supprimer(publication.id)">Supprimer</button>
-            </div>
             <div class="button">
-              <button
-                v-if="user.userId === publication.userId || user.isAdmin"
-                @click="modifier(publication.id)"
-              >Modifier
-              </button>
-            </div>
+
+              <p  v-if="user.userId==publication.userId || user.isAdmin">
+              <button  @click="supprimer(publication.id)" id="btn-supp" type="submit">Supprimer</button>
+              </p>
+              </div>
+           
           </div>
           <div class="Comments">
             <div class="createComment">
-          <Comments :user="user" :publication="publication" />
+          
+
+     <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
+     <div class="button-comment">
+      <button v-on:click="commenter(publication.id)" id="valider">Commenter</button>
+
+    </div>
 
           </div>
+        
           
           </div>
       </div>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import Comments from "../components/Comments.vue";
+//import Comments from "../components/Comments.vue";
 
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
@@ -57,7 +58,7 @@ export default {
   name: "WallPublications",
   components: {
     NavBarTwo,
-    Comments,
+    //Comments,
     
     
   },
@@ -73,6 +74,7 @@ export default {
       comments: [],
       publications: [],
       userId: "",
+      dataComs:{}
     };
   },
 
@@ -91,8 +93,7 @@ export default {
 
   methods: {
     getAllPublications() {
-      axios
-        .get("http://localhost:3000/api/publications" , {
+      axios.get("http://localhost:3000/api/publications" , {
           headers: { Authorization: "Bearer " + localStorage.token },
         })
 
@@ -103,23 +104,51 @@ export default {
         });
     },
     supprimer(id) {
-    console.log(id);
-    const post_id = this.publications.findIndex(
-                (publication) => publication.id === id
-            );
-            if (post_id !== -1) {
-                this.publications.splice(post_id, 1);
-                axios
-                    .delete("http://localhost:3000/api/publications/" + id, {
-                        headers: {
-                            Authorization:
-                                "Bearer " + localStorage.getItem("token"),
-                        },
-                    })
-                    .catch((error) => console.log(error));
+    if (window.confirm("Souhaitez-vous réellement supprimer ce post?"))
+            axios
+            .delete("http://localhost:3000/api/publications/"+ id, {
+                headers: {
+                    Authorization: "Bearer " + window.localStorage.getItem("token")
+                },
+            })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(error => console.log(error));
+        },
+        commenter(postId) { 
+           if (this.dataComs[postId] !== null) {
+                axios.post("http://localhost:3000/api/comments", {
+                    content: this.dataComs[postId],
+                    post_id: postId,
+                    
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + window.localStorage.getItem("token")
+                    }
+                })
+                .then(response => {
+                    console.log(response);
+                   
+                    this.getComments(postId);
+                })
+                .catch(error => console.log(error));
             }
         },
-  
+   getComments(postId) {
+            axios
+            .get(`http://localhost:3000/api/publications/${postId}/comments`, 
+            {
+                headers: {
+                    Authorization: "Bearer " + window.localStorage.getItem("token")
+                }
+            })
+            .then(response => {
+                this.comments[postId]= response.data ;
+              })  
+            .catch(error => console.log(error));
+        },
   },
   mounted() {
     this.getAllPublications();

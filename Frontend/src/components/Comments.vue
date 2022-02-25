@@ -16,8 +16,8 @@
 
 <div class="button-comment">
 
-     <input class="coms" id="coms" v-model="message" placeholder="Ajouter un commentaire..."> 
-     <button class="valider" @click="commenter">Commenter</button>
+<textarea type="text" v-bind:id="publication.id" class="coms"  v-model="DataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
+     <button v-on:click="commenter(publication.id)" id="valider">Commenter</button>
 
     </div>
     </section>

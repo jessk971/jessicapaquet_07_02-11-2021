@@ -8,7 +8,7 @@ exports.createComment = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
     const userId = decodedToken.userId;
 
-    db.Publication.findOne({ where: { id: req.body.postId } })
+    db.Publication.findOne({ where: { id: req.body.post_id } })
         .then(publication => {
             if (!publication) {
                 return res.status(404).json({ error: 'Publication introuvable !' })
