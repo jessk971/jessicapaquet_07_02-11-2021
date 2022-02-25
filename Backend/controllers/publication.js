@@ -69,7 +69,7 @@ exports.modifyPublication = (req, res) => {
 exports.deletePublication = (req, res, next) => {
     db.Publication.findOne({ id: req.params.id })
         .then(() =>
-            Publication.destroy({
+            db.Publication.destroy({
                 where: { id: req.params.id }
             })
         )
