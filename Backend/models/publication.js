@@ -1,26 +1,25 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/db')
-const User = require('../models/user')
+'use strict';
+
+module.exports = (sequelize, DataTypes) => {
+    const Publication = sequelize.define(
+
+        'Publication', {
+            user_id: DataTypes.INTEGER,
+            content: DataTypes.STRING,
+            image: DataTypes.STRING,
+        }, { tableName: 'publication', }
+    );
 
 
-const Publication = sequelize.define(
+    Publication.associate = function(models) {
+        Publication.belongsTo(models.User, {
+            foreignKey: "user_id",
+        });
 
-    'Publication', {
-        user_id: DataTypes.INTEGER,
-        content: DataTypes.STRING,
-        image: DataTypes.STRING,
-    }, { tableName: 'publication', }
-);
+        Publication.hasMany(models.Comment, {
+            foreignKey: "post_id",
 
-
-
-Publication.belongsTo(User, {
-
-    foreignKey: "user_id"
-});
-
-
-
-sequelize.sync()
-
-module.exports = Publication
+        });
+    };
+    return Publication;
+};

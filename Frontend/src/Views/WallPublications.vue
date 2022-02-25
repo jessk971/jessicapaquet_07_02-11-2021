@@ -39,9 +39,7 @@
           <Comments :user="user" :publication="publication" />
 
           </div>
-          <div class="AllComments">
-            <OneComment :user="user" :publication="publication"/>
-        </div>
+          
           </div>
       </div>
       </div>
@@ -52,7 +50,7 @@
 
 <script>
 import Comments from "../components/Comments.vue";
-import OneComment from "../components/OneComment.vue";
+
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
 export default {
@@ -60,7 +58,7 @@ export default {
   components: {
     NavBarTwo,
     Comments,
-    OneComment
+    
     
   },
   data() {

@@ -1,40 +1,55 @@
-const Publication = require('../models/publication');
-const User = require('../models/user');
+const db = require('../models');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 
 
-exports.createPublication = (req, res, ) => {
 
-    const publication = {
-        user_id: req.body.user_id,
-        content: req.body.content,
+exports.createPublication = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
 
-        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    };
+    db.User.findOne({ where: { id: userId } })
+        .then(user => {
+            db.Publication.create({
+                    user_id: req.body.user_id,
+                    content: req.body.content,
 
-    Publication.create(publication)
-        .then(() => res.status(201).json({ message: 'Publication créé avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de créer cette publication', error }));
-
-
+                    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                })
+                .then(publication => {
+                    return res.status(201).json({ publication })
+                })
+                .catch(error => {
+                    console.log(error)
+                    res.status(400).json({ message: 'Erreur création bdd' })
+                })
+        })
+        .catch(error => res.status(500).json({ error: "Problème lié à la base de données" }));
 };
 
 exports.getAllPublications = (req, res) => {
-    Publication.findAll({
-        order: [
-            ['updatedAt', 'DESC']
-        ],
-        include: { model: User, attribute: 'username' }
-    })
 
-    .then(publications => res.status(200).json(publications))
-        .catch(error => res.status(400).json({ message: 'Impossible d\'afficher toutes les publications', error }));
+    db.Publication.findAll({
+            include: {
+                model: db.User,
+                attribute: [
+                    "id", "username", "isAdmin"
+                ]
+            },
+            order: [
+                ['createdAt', 'DESC']
+            ],
+        })
+        .then(publications => {
+            res.status(200).json(publications);
+        })
+        .catch(error => res.status(500).json({ error: error }))
 }
-
 exports.getOnePublication = (req, res) => {
 
-    Publication.findOne({ where: { id: req.params.id }, include: { model: User } })
+    db.Publication.findOne({ where: { id: req.params.id }, include: { model: db.User } })
         .then(publication => res.status(200).json(publication))
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher cette publication', error }));
 }
@@ -46,13 +61,13 @@ exports.modifyPublication = (req, res) => {
     if (req.file) {
         updatedPublication["image"] = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     }
-    Publication.update(updatedPublication, { where: { id: req.params.id, user_id: req.body.user_id } })
+    db.Publication.update(updatedPublication, { where: { id: req.params.id, user_id: req.body.user_id } })
         .then(() => res.status(200).json({ message: 'Publication modifiée avec succès' }))
         .catch(error => res.status(400).json({ message: 'Impossible de modifier cette publication', error }));
 }
 
 exports.deletePublication = (req, res, next) => {
-    Publication.findOne({ id: req.params.id })
+    db.Publication.findOne({ id: req.params.id })
         .then(() =>
             Publication.destroy({
                 where: { id: req.params.id }
@@ -60,4 +75,20 @@ exports.deletePublication = (req, res, next) => {
         )
         .then(() => res.status(200).json({ message: 'Publication supprimée' }))
         .catch(error => res.status(400).json({ error }))
+}
+exports.getAllComments = (req, res, next) => {
+    db.Comment.findAll({
+            where: { post_id: req.params.id },
+            include: {
+                model: db.User,
+                attribute: [
+                    "id", "username", "isAdmin"
+                ]
+            },
+            order: [
+                ['createdAt', 'ASC']
+            ],
+        })
+        .then(comments => res.status(200).json(comments))
+        .catch(error => res.status(500).json({ error }))
 };

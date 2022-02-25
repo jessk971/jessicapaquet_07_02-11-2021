@@ -1,34 +1,33 @@
-const Comment = require('../models/comment');
-const User = require('../models/user');
+const db = require('../models');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
-exports.createComment = (req, res) => {
-    const comment = {
-        comment: req.body.comment,
-        user_id: req.body.user_id,
-        post_id: req.params.post_id,
+/* Ajout d'un nouveau commentaire */
+exports.createComment = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
 
-    };
-
-    Comment.create(comment)
-        .then(() => res.status(201).json({ message: 'Commentaire créé avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de créer ce commentaire', error }));
-}
-
-exports.getAllComments = (req, res) => {
-
-    Comment.findAll({
-            order: [
-                ['createdAt', 'ASC']
-            ],
-            where: { post_id: req.params.id, },
-            include: { model: User }
+    db.Publication.findOne({ where: { id: req.body.postId } })
+        .then(publication => {
+            if (!publication) {
+                return res.status(404).json({ error: 'Publication introuvable !' })
+            }
+            db.Comment.create({
+                    content: req.body.content,
+                    post_id: req.body.post_id,
+                    user_id: userId
+                })
+                .then(comment => res.status(201).json({ comment }))
+                .catch(error => res.status(400).json({ error }))
         })
-        .then(comments => res.status(200).json(comments))
-        .catch(error => res.status(400).json({ message: 'Impossible d\'afficher tous les commentaires', error }));
+        .catch(error => res.status(400).json({ message: "erreur création commentaire" }))
 }
+
+
 
 exports.getOneComment = (req, res) => {
-    Comment.findOne({ where: { id: req.params.id, }, include: { model: User } })
+    db.Comment.findOne({ where: { id: req.params.id, }, include: { model: User } })
         .then(comment => {
             if (comment) {
                 res.status(200).json(comment)
@@ -41,13 +40,13 @@ exports.getOneComment = (req, res) => {
 
 exports.deleteComment = (req, res) => {
 
-    Comment.findOne({
+    db.Comment.findOne({
             where: { id: req.params.id },
         })
         .then((comment) => {
 
             if (comment.user_id == req.userId || req.isAdmin === true) {
-                Comment.destroy({ where: { id: req.params.id } })
+                db.Comment.destroy({ where: { id: req.params.id } })
                     .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
                     .catch((error) => res.status(400).json({ error }));
             } else {

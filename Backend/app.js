@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 require('dotenv').config()
-require("./config/db");
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
@@ -10,6 +9,10 @@ const userRoutes = require('./routes/user.routes');
 const publicationRoutes = require('./routes/publication.routes');
 const commentRoutes = require('./routes/comment.routes');
 const auth = require('./middleware/auth');
+const db = require('./models')
+db.sequelize.sync().then((req) => {
+    console.log(req);
+})
 
 
 
