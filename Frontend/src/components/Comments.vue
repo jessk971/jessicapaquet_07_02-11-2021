@@ -4,7 +4,7 @@
 
 <div class="userComment">
 
-    <p> {{ comment.User.username }}</p>
+    <p> posté par  {{ comment.User.username }}</p>
     <p> {{ comment.content }}</p>
     
 
@@ -25,15 +25,16 @@ import axios from "axios";
 
 export default {
     name: "Comments", 
-        
+      
    
   data(){
         return{
-            comments:[],
+            comment:{},
             publications:[],
-            postId:"",
+            
             userId:"",
-            id:"",
+             
+            content:"",
             user:{
                 usersame:""
             }
@@ -45,40 +46,53 @@ export default {
 
      mounted(){  
  
-        axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
+        axios 
+        .get("http://localhost:3000/api/user/profil", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
         .then(response => {
             
-            this.user = response.data.user;
+            this.user = response.data.user
+            console.log('this.user',this.user)
         })
+        .catch(error => console.log(error));
+        axios 
+        .get(`http://localhost:3000/api/publications/${this.id}/comments`, {
+            headers: {
+                Authorization: "Bearer " + window.localStorage.getItem("token") // récupération de la clé présente dans le LS
+            }
+        })
+        .then(response => {
+           
+            this.comments = response.data;
+            console.log('comments',this.comments)
         
-        .catch(error => {
-            console.log("Impossible de traiter les données du profil ! >" + error);
-        }) 
-
-       this.getAllComments();
-},
+        })
+        .catch(error => console.log(error));
+    },
 
    methods: {
-        getAllComments(id) {
-            this.post_id = id
-            axios.get("http://localhost:3000/api/publications/" +id + "/comments", 
+        
+            getComments(postId) {
+            axios
+            .get(`http://localhost:3000/api/publications/${postId}/comments`, 
             {
                 headers: {
                     Authorization: "Bearer " + window.localStorage.getItem("token")
                 }
             })
             .then(response => {
-            console.log(response);
-            this.comments = response.data;
-            console.log('Comments',this.comments)
-               
+                this.comments[postId] = response.data;
+                
             })
             .catch(error => console.log(error));
-        },      
-   }
+            }
+   
       
     
-    
+   }
 
 }
 

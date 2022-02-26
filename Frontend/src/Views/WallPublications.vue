@@ -34,8 +34,9 @@
 
      <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
      <div class="button-comment">
+      
       <button type="submit" v-on:click="commenter(publication.id)" id="valider">Commenter</button>
-
+      
     </div>
 
           </div>
@@ -79,7 +80,7 @@ export default {
       publications: [],
       userId: "",
       dataComs:{},
-      allComments:{}
+      
     };
   },
 

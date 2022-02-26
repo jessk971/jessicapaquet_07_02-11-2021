@@ -16,6 +16,7 @@ exports.createPublication = (req, res, next) => {
                     user_id: req.body.user_id,
                     content: req.body.content,
 
+
                     image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
                 })
                 .then(publication => {
@@ -32,6 +33,7 @@ exports.createPublication = (req, res, next) => {
 exports.getAllPublications = (req, res) => {
 
     db.Publication.findAll({
+
             include: {
                 model: db.User,
                 attribute: [
@@ -79,9 +81,15 @@ exports.deletePublication = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     db.Comment.findAll({
             where: { post_id: req.params.id },
-
-
-
+            include: {
+                model: db.User,
+                attribute: [
+                    "id", "username", "isAdmin"
+                ]
+            },
+            order: [
+                ['createdAt', 'ASC']
+            ],
         })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(500).json({ error }))
