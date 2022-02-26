@@ -27,7 +27,7 @@ exports.createComment = (req, res, next) => {
 
 
 exports.getOneComment = (req, res) => {
-    db.Comment.findOne({ where: { id: req.params.id, }, include: { model: User } })
+    db.Comment.findOne({ where: { id: req.params.id, }, include: { model: db.User } })
         .then(comment => {
             if (comment) {
                 res.status(200).json(comment)

@@ -34,15 +34,17 @@
 
      <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
      <div class="button-comment">
-      <button v-on:click="commenter(publication.id)" id="valider">Commenter</button>
+      <button type="submit" v-on:click="commenter(publication.id)" id="valider">Commenter</button>
 
     </div>
 
           </div>
-        
+        <div class="allComments">
+          <Comments />
           
           </div>
       </div>
+        </div>
       </div>
     </div>
   </div>
@@ -50,15 +52,17 @@
 </template>
 
 <script>
-//import Comments from "../components/Comments.vue";
+
 
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
+import Comments from '../components/Comments.vue';
 export default {
   name: "WallPublications",
   components: {
     NavBarTwo,
-    //Comments,
+    Comments,
+    
     
     
   },
@@ -71,10 +75,11 @@ export default {
       id: "",
       content: "",
       image: "",
-      comments: [],
+      Comments: [],
       publications: [],
       userId: "",
-      dataComs:{}
+      dataComs:{},
+      allComments:{}
     };
   },
 
@@ -104,7 +109,7 @@ export default {
         });
     },
     supprimer(id) {
-    if (window.confirm("Souhaitez-vous réellement supprimer ce post?"))
+    if (window.confirm("Souhaitez-vous réellement supprimer cette publication?"))
             axios
             .delete("http://localhost:3000/api/publications/"+ id, {
                 headers: {
@@ -130,28 +135,17 @@ export default {
                 })
                 .then(response => {
                     console.log(response);
-                   
-                    this.getComments(postId);
+                   window.location.reload();
+                    
                 })
                 .catch(error => console.log(error));
             }
         },
-   getComments(postId) {
-            axios
-            .get(`http://localhost:3000/api/publications/${postId}/comments`, 
-            {
-                headers: {
-                    Authorization: "Bearer " + window.localStorage.getItem("token")
-                }
-            })
-            .then(response => {
-                this.comments[postId]= response.data ;
-              })  
-            .catch(error => console.log(error));
-        },
+  
   },
   mounted() {
     this.getAllPublications();
+    
   },
 
   

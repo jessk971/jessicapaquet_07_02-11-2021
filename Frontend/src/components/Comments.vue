@@ -5,21 +5,16 @@
 <div class="userComment">
 
     <p> {{ comment.User.username }}</p>
-    <p> {{ comment.message }}</p>
+    <p> {{ comment.content }}</p>
     
 
 </div>
-
-<button class="delete" @click="removeComment(comment.id)" v-if="user.userId == comment.userId || user.isAdmin">Supprimer</button>
-
+<p v-if="user.userId==comment.userId || user.isAdmin">
+<button class="delete" @click="removeComment(comment.id)" type="submit" >Supprimer</button>
+</p>
     </div>
 
-<div class="button-comment">
 
-<textarea type="text" v-bind:id="publication.id" class="coms"  v-model="DataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
-     <button v-on:click="commenter(publication.id)" id="valider">Commenter</button>
-
-    </div>
     </section>
 
 </template>
@@ -35,21 +30,21 @@ export default {
   data(){
         return{
             comments:[],
-            publication:[],
-            user:"",
+            publications:[],
+            postId:"",
+            userId:"",
+            id:"",
+            user:{
+                usersame:""
+            }
            
-            username:"",
-            commentId:"",
-            comment:[],
-            user_id:"",
-            post_id:"",
-            message:""
+            
 
         }
     },
 
-     methods:{  
-loadUser() { 
+     mounted(){  
+ 
         axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
         .then(response => {
             
@@ -59,47 +54,31 @@ loadUser() {
         .catch(error => {
             console.log("Impossible de traiter les données du profil ! >" + error);
         }) 
+
+       this.getAllComments();
 },
 
-        commenter(){
-            
-            var formData = new FormData();
-            formData.append("comment", this.message);
-            formData.append("user_id", this.user.id);
-            formData.append("post_id", this.publication.id)
-                
-            axios.post ("http://localhost:3000/api/comments", formData, { headers: { "Authorization":"Bearer " + localStorage.token}})   
-           .then((response) => {
-                alert("Votre commentaire à bien été créée !")
-          console.log(response);
-          this.comment = response.data.comment;
-          window.location.reload();
-        })
-        .catch((error) => console.log(error));
-    
-        },
-        getAllComments(){
-
-        axios.get("http://localhost:3000/api/comments/postId" +this.publication.id , {
-          headers: { Authorization: "Bearer " + localStorage.token },
-        })
-
-        .then((response) => {
-          console.log("comments", response.data);
-          this.comments = response.data;
-         
-        });
-
-}
-        
-    },
-    mounted(){
-        
-       this.getAllComments;
-
+   methods: {
+        getAllComments(id) {
+            this.post_id = id
+            axios.get("http://localhost:3000/api/publications/" +id + "/comments", 
+            {
+                headers: {
+                    Authorization: "Bearer " + window.localStorage.getItem("token")
+                }
+            })
+            .then(response => {
+            console.log(response);
+            this.comments = response.data;
+            console.log('Comments',this.comments)
+               
+            })
+            .catch(error => console.log(error));
+        },      
+   }
       
     
-    }
+    
 
 }
 

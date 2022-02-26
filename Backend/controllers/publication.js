@@ -79,15 +79,9 @@ exports.deletePublication = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     db.Comment.findAll({
             where: { post_id: req.params.id },
-            include: {
-                model: db.User,
-                attribute: [
-                    "id", "username", "isAdmin"
-                ]
-            },
-            order: [
-                ['createdAt', 'ASC']
-            ],
+
+
+
         })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(500).json({ error }))
