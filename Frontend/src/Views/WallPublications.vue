@@ -185,7 +185,7 @@ export default {
 .modify {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .allComments {
@@ -237,5 +237,16 @@ button {
   margin-left: 1em;
   font-size: larger;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.createComment textarea {
+       width: 99%;
+    height: 60px;
+    border-left: transparent;
+    border-right: transparent;
+    border-top: gray solid;
+    border-bottom: solid gray;   
+ 
+   
 }
 </style>
