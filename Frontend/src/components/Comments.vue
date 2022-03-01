@@ -4,7 +4,7 @@
 
 <div class="userComment">
 
-    <p> posté par  {{ comment.User.username }}</p>
+    <p> {{ comment.User.username }} {{ comment.createdAt.split(' ')[0] }}</p>
     <p> {{ comment.content }}</p>
     
 
@@ -24,16 +24,21 @@
 import axios from "axios";
 
 export default {
+    
     name: "Comments", 
+
+    props : [
+        "publicationId"
+    ],
       
    
   data(){
         return{
-            comment:{},
+            comments:[],
             publications:[],
             
             userId:"",
-             
+            
             content:"",
             user:{
                 usersame:""
@@ -58,10 +63,9 @@ export default {
             console.log('this.user',this.user)
         })
         .catch(error => console.log(error));
-        axios 
-        .get(`http://localhost:3000/api/publications/${this.id}/comments`, {
+        axios .get(`http://localhost:3000/api/publications/${this.publicationId}/comments`, {
             headers: {
-                Authorization: "Bearer " + window.localStorage.getItem("token") // récupération de la clé présente dans le LS
+                Authorization: "Bearer " + window.localStorage.getItem("token") 
             }
         })
         .then(response => {
@@ -73,27 +77,7 @@ export default {
         .catch(error => console.log(error));
     },
 
-   methods: {
-        
-            getComments(postId) {
-            axios
-            .get(`http://localhost:3000/api/publications/${postId}/comments`, 
-            {
-                headers: {
-                    Authorization: "Bearer " + window.localStorage.getItem("token")
-                }
-            })
-            .then(response => {
-                this.comments[postId] = response.data;
-                
-            })
-            .catch(error => console.log(error));
-            }
    
-      
-    
-   }
-
 }
 
 </script>

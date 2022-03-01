@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
 
 
     Comment.associate = function(models) {
-        Comment.belongsTo(models.User);
+        Comment.belongsTo(models.User, {
+            foreignKey: "user_id",
+        });
+
         Comment.belongsTo(models.Publication, {
 
             foreignKey: "post_id",

@@ -22,7 +22,7 @@
           <div class="modify">
             <div class="button">
 
-              <p  v-if="user.userId==publication.userId || user.isAdmin">
+              <p  v-if="user.id==publication.user_id || user.isAdmin">
               <button  @click="supprimer(publication.id)" id="btn-supp" type="submit">Supprimer</button>
               </p>
               </div>
@@ -41,7 +41,7 @@
 
           </div>
         <div class="allComments">
-          <Comments />
+          <Comments :publicationId="publication.id"  />
           
           </div>
       </div>
@@ -84,7 +84,9 @@ export default {
     };
   },
 
-  loadUser() {
+ 
+  methods: {
+     loadUser() {
     axios
       .get("http://localhost:3000/api/user/profil", {
         headers: { Authorization: "Bearer " + localStorage.token },
@@ -97,7 +99,6 @@ export default {
       });
   },
 
-  methods: {
     getAllPublications() {
       axios.get("http://localhost:3000/api/publications" , {
           headers: { Authorization: "Bearer " + localStorage.token },
@@ -146,6 +147,7 @@ export default {
   },
   mounted() {
     this.getAllPublications();
+    this.loadUser()
     
   },
 
