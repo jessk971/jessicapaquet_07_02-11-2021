@@ -30,7 +30,9 @@
     </div>
 <div class="button-clear">
 
+    <button class="modify" @click="modifyUser()">Modifier le profil</button>
     <button class="delete" @click="deleteUser(user)">Supprimer le profil</button>
+    
 
 </div>
 
@@ -71,6 +73,9 @@ export default {
             this.$router.push("/Signup");
         }
     }, 
+    modifyUser() {
+        this.$router.push("/ModifyProfil");
+    }
     },
             
     
