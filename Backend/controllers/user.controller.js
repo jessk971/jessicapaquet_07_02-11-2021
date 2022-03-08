@@ -102,7 +102,16 @@ exports.getAllUsers = (req, res, next) => { // récuprération de tout les users
 };
 
 exports.modifyUser = (req, res) => {
-    db.User.update(updatedUser, { where: { id: req.params.id } })
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
+    const updatedUser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: bcrypt.hash
+    }
+
+    db.User.update(updatedUser, { where: { id: userId } })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié avec succès' }))
         .catch(error => res.status(400).json({ message: 'Impossible de modifier cet utilisateur', error }));
 

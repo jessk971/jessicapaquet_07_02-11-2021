@@ -38,22 +38,14 @@ exports.getOneComment = (req, res) => {
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher ce commentaire', error }));
 }
 
-exports.deleteComment = (req, res) => {
+exports.deleteComment = (req, res, next) => {
 
-    db.Comment.findOne({
-            where: { id: req.params.id },
-        })
-        .then((comment) => {
 
-            if (comment.user_id == req.userId || req.isAdmin === true) {
-                db.Comment.destroy({ where: { id: req.params.id } })
-                    .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
-                    .catch((error) => res.status(400).json({ error }));
-            } else {
-                res.status(401).json({
-                    error: "Vous ne disposez pas des droits pour supprimer ce commentaire !",
-                });
-            }
-        })
-        .catch((error) => res.status(500).json({ error }));
+    db.Comment.findOne({ where: { id: req.params.id } }).then(() =>
+            db.Comment.destroy({
+                where: { id: req.params.id }
+            }))
+        .then(() => res.status(200).json({ message: "Commentaire supprimé !" }))
+        .catch(error => res.status(400).json({ error }))
+
 };

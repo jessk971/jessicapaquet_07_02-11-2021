@@ -11,7 +11,7 @@
 
             <div class="user-infos">
             <p class="username"> {{ publication.User.username }}</p>
-            <p class="date"> {{ publication.createdAt.split(' ')[0] }} {{ publication.createdAt.slice(11,16) }}</p>
+            <p class="date"> {{ publication.formatDate }} </p>
             </div>
           </div>
           <p class="publication-content">{{ publication.content }}</p>
@@ -32,10 +32,10 @@
             <div class="createComment">
           
 
-     <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Ajouter un commentaire..."></textarea> 
+     <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Votre commentaire..."></textarea> 
      <div class="button-comment">
       
-      <button type="submit" v-on:click="commenter(publication.id)" id="valider">Commenter</button>
+      <button type="submit" v-on:click="commenter(publication.id)" id="valider"><i title="Commenter" class="fas fa-comment"></i></button>
       
     </div>
 
@@ -58,6 +58,7 @@
 import NavBarTwo from "../components/NavBarTwo.vue";
 import axios from "axios";
 import Comments from '../components/Comments.vue';
+import moment from 'moment';
 export default {
   name: "WallPublications",
   components: {
@@ -106,7 +107,11 @@ export default {
 
         .then((response) => {
           console.log("publications", response.data);
-          this.publications = response.data;
+          this.publications = response.data.map(p => {
+            let date = moment(p.createdAt)
+            p.formatDate = date.format('DD/MM/YYYY HH:mm')
+            return p;
+          })
           this.image = response.data.image;
         });
     },
@@ -161,9 +166,9 @@ export default {
   color: white;
   font-style: oblique;
   font-weight: 900;
-  font-size: 50px;
-  margin-top: 0;
-  margin-bottom: 0;
+  font-size: 80px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   text-align: center;
 }
 
@@ -184,6 +189,10 @@ export default {
   margin-top: 1em;
 }
 
+.publicationForm:hover {
+  box-shadow: 1px 2px 20px rgb(15, 15, 15);
+}
+
 .modify {
   display: flex;
   flex-wrap: wrap;
@@ -195,8 +204,10 @@ export default {
 }
 
 
-button {
-  margin-right: 1em;
+#btn-supp {
+
+      margin-top: 1em;
+    margin-right: 2.5em;
 }
 
 .valider {
@@ -242,13 +253,34 @@ button {
 }
 
 .createComment textarea {
-       width: 99%;
-    height: 60px;
-    border-left: transparent;
-    border-right: transparent;
-    border-top: gray solid;
-    border-bottom: solid gray;   
- 
+      margin-left: 1em;
+    border: solid rgb(222, 222, 222);
+    border-radius: 20px;
+    width: 90%;
+    padding-left: 1em;
+    background-color: rgb(235, 235, 243); 
+    height: 50px;  
+    margin-top: 1em;
+    padding-top: 1em;
+    font-size: large;
    
 }
+
+.createComment {
+
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-right: 2em;
+    margin-bottom: 2em;
+}
+
+#valider {
+
+  font-size: 20px;
+  width: 50px;
+  margin-top: 1em;
+}
+
+
 </style>

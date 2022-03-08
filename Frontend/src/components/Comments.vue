@@ -3,18 +3,33 @@
  <div class="comment" v-for="comment in comments" :key='comment.id'  >
 
 <div class="userComment">
+    <div class="imgUsername">
 
-    <p> {{ comment.User.username }} {{ comment.createdAt.split(' ')[0] }}</p>
-    <p> {{ comment.content }}</p>
-    
+        <img class="anonymeComment" src="../assets/profil.png"  alt="photo de profil">
 
-</div>
-<p v-if="user.userId==comment.userId || user.isAdmin">
-<button class="delete" @click="removeComment(comment.id)" type="submit" >Supprimer</button>
-</p>
     </div>
 
+    <div class="commentInfos">
 
+    <p class="usernameComment"> {{ comment.User.username }}</p>
+    <p class="contentComent"> {{ comment.content }}</p>
+
+    </div>
+    
+<p v-if="user.id==comment.user_id || user.isAdmin">
+<button class="delete"   @click="removeComment(comment.id)" type="submit" ><i title="Supprimer" class="fas fa-trash-alt"></i></button>
+</p>
+</div>
+
+<div class="dateAndTrash">
+
+<p class="dateComment">{{ comment.formatDate }}</p>
+
+
+
+    </div>
+
+ </div>
     </section>
 
 </template>
@@ -22,6 +37,7 @@
 <script>
 
 import axios from "axios";
+import moment from 'moment';
 
 export default {
     
@@ -63,6 +79,7 @@ export default {
             console.log('this.user',this.user)
         })
         .catch(error => console.log(error));
+        
         axios .get(`http://localhost:3000/api/publications/${this.publicationId}/comments`, {
             headers: {
                 Authorization: "Bearer " + window.localStorage.getItem("token") 
@@ -70,14 +87,82 @@ export default {
         })
         .then(response => {
            
-            this.comments = response.data;
+            this.comments = response.data.map(p => {
+            let date = moment(p.createdAt)
+            p.formatDate = date.format('DD/MM/YYYY HH:mm')
+            return p;
+          }) 
             console.log('comments',this.comments)
         
         })
         .catch(error => console.log(error));
     },
 
+methods: {
+    removeComment(commentaireId){
+            console.log(commentaireId)
+            axios.delete('http://localhost:3000/api/comments/'   + commentaireId,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
+            .then((res)=>{
+                console.log(res)
+                alert('Le commentaire a bien été supprimé !')
+                window.location.reload()
+                
+            })
+            .catch((error)=> { 
+                console.log(error)
+            })
+        },
+}
    
 }
 
 </script>
+
+<style>
+
+.anonymeComment {
+
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+}
+
+.userComment {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 2em;
+    flex-direction: row;
+}
+
+.commentInfos {
+    margin-left: 1em;
+    border: solid rgb(222, 222, 222);
+    border-radius: 30px;
+    width: 70%;
+    padding-left: 1em;
+    background-color: rgb(230, 230, 230);
+}
+
+.usernameComment {
+
+   font-weight: 800;
+    font-size: larger;
+} 
+
+.dateComment {
+
+    margin-left: 5em;
+}
+
+ button.delete { 
+   
+    width: 30px;
+    margin-top: 0;
+    margin-top: 1em;
+    margin-left: 1em;
+
+}
+
+
+
+</style>

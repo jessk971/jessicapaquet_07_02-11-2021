@@ -80,17 +80,16 @@ margin-top: 1.5em;
 }
 
 .nav-list a {
-    margin-right: 1em;
+    margin-right: 2em;
     cursor: pointer;
     text-decoration: none;
     color: white;
+    font-size: large;
 }
 
 .nav-list a:hover {
-    background-color: grey;
-    border: solid grey;
-    padding: 1.5em;
-    padding-bottom: 1.6em;
+    font-size: x-large;
+    font-weight: bold;
 }
     </style>
    
