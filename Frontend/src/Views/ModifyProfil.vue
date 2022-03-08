@@ -79,6 +79,8 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
         .catch(error => {
             console.log("Impossible de traiter les données du profil ! >" + error);
         })
+
+        this.modify()
     }
 }
 
