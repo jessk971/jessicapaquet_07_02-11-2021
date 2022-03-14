@@ -49,7 +49,9 @@ const routes = [{
         name: 'ModifyProfil',
         component: () =>
             import ("../Views/ModifyProfil.vue"),
-    }
+    },
+
+
 ]
 Vue.use(VueRouter)
 

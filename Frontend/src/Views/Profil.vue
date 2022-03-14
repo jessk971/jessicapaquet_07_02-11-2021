@@ -38,16 +38,27 @@
 
 </div>
 
+<div class="MyPublications">
+    <h2 class="title-wall">Mes Publications</h2>
+
+    <div class="wallMyPost">
+        <MyPublications  />
+    </div>
+
+</div>
+
     </section>
 </template>
 
 <script>
 import NavBarTwo from "../components/NavBarTwo.vue"
 import axios from "axios"
+import MyPublications from "../components/MyPublications.vue"
 export default {
     name: 'Profil', 
     components:{
         NavBarTwo,
+        MyPublications,
     },
     data() {
         return {
@@ -145,6 +156,18 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
     .button-clear button
     {
         width: 150px;
+    }
+
+    .title-wall {
+
+ text-shadow: 3px 3px 3px black;
+  color: white;
+  font-style: oblique;
+  font-weight: 900;
+  font-size: 50px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: center;
     }
 
 </style>

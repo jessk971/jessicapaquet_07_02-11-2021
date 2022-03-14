@@ -5,7 +5,7 @@
 <form v-on:submit.prevent="createPublication">
 
        <div class="created">
-           <label for="content">Quoi de neuf {{ user.username}} ?</label>
+           <label for="content">Quoi de neuf <em> {{ user.username}} </em> ?</label>
            <textarea class="textarea" v-model="publication.content" placeholder="Entrez le texte ici ..."></textarea>
 
        </div>
@@ -72,7 +72,7 @@ export default {
                 alert("Votre publication à bien été créée !")
           console.log(response);
           this.publication = response.data.publication;
-          window.location.reload();
+          this.$router.push("/WallPublications");
         })
         .catch((error) => console.log(error));
     },
@@ -136,6 +136,10 @@ margin-bottom: 1em;
 
     .uploadImg input {
         margin-left: 1.2em ;
+    }
+
+    em {
+        font-weight: 800;
     }
 
 </style>

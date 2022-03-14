@@ -16,17 +16,20 @@
           </div>
           <p class="publication-content">{{ publication.content }}</p>
 
-          <div class="publication-img">
+          <div v-if="publication.image != null" class="publication-img">
             <img class="img"  :src="publication.image">
           </div>
           <div class="modify">
-            <div class="button">
+            
+
+            <div class="Supp">
 
               <p  v-if="user.id==publication.user_id || user.isAdmin">
               <button  @click="supprimer(publication.id)" id="btn-supp" type="submit">Supprimer</button>
               </p>
               </div>
            
+            
           </div>
           <div class="Comments">
             <div class="createComment">
@@ -124,7 +127,8 @@ export default {
                 },
             })
             .then(() => {
-                window.location.reload();
+                const newPublications = this.publications.filter(p =>(p.id != id));
+                this.publications = newPublications
             })
             .catch(error => console.log(error));
         },
@@ -148,6 +152,8 @@ export default {
                 .catch(error => console.log(error));
             }
         },
+
+      
   
   },
   mounted() {
@@ -193,22 +199,22 @@ export default {
   box-shadow: 1px 2px 20px rgb(15, 15, 15);
 }
 
-.modify {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
+
 
 .allComments {
   margin-top: 1em;
 }
 
 
-#btn-supp {
+.modify {
 
-      margin-top: 1em;
-    margin-right: 2.5em;
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-right: 2em;
 }
+
+ 
 
 .valider {
   margin-left: 1em;
@@ -281,6 +287,8 @@ export default {
   width: 50px;
   margin-top: 1em;
 }
+
+
 
 
 </style>

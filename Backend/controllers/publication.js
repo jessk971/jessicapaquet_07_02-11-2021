@@ -12,12 +12,15 @@ exports.createPublication = (req, res, next) => {
 
     db.User.findOne({ where: { id: userId } })
         .then(user => {
+
+            let image = null;
+            if (req.file !== undefined) {
+                image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            }
             db.Publication.create({
                     user_id: req.body.user_id,
                     content: req.body.content,
-
-
-                    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                    image: image
                 })
                 .then(publication => {
                     return res.status(201).json({ publication })
@@ -93,4 +96,11 @@ exports.getAllComments = (req, res, next) => {
         })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(500).json({ error }))
+};
+
+exports.getAllMyPublication = (req, res, next) => {
+
+    db.Publication.findAll({ where: { id: req.params.id, user_id: req.body.user_id, } })
+        .then((result) => res.status(200).json(result))
+        .catch(error => res.status(400).json({ error: 'impossible d\'afficher tous vos publications' }));
 };

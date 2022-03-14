@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         Comment.belongsTo(models.Publication, {
 
             foreignKey: "post_id",
+            onDelete: "CASCADE",
 
         });
     };

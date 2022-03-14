@@ -105,10 +105,12 @@ exports.modifyUser = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
     const userId = decodedToken.userId;
+
+
     const updatedUser = {
         username: req.body.username,
-        email: req.body.email,
-        password: bcrypt.hash
+
+
     }
 
     db.User.update(updatedUser, { where: { id: userId } })

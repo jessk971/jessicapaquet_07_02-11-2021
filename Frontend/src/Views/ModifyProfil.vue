@@ -13,24 +13,17 @@
 
          </div>
 
-         <div class="modifyUser">
-
-            <label for="inputEmail"> Email: </label>
-            <input class="form-modify" type="text"  v-model="user.email" id="inputEmail" aria-describedby="inputEmailHelp" placeholder="Votre email">
-
-        </div>
-
-        <div class="modifyUser">
-
-            <label for="inputPassword">Choissisez un mot de passe: </label>
-            <input class="form-modify" type="password"  v-model="user.password" id="inputPassword" aria-describedby="inputPassword" placeholder="Mot de passe">
-            
-
-        </div>
+<div class="button-modif">
 
         <div class="modify-button">
-            <button class="modify" @click="modify(user)"> Modifier mes informations</button>
+            <button class="modify" @click="modify(user)"> Modifier</button>
         </div>
+
+        <div class="annulerModif">
+            <button class="annule" @click="Annuler()">Annuler</button>
+        </div>
+
+</div>
 </form>
      </div>
 
@@ -60,14 +53,18 @@ export default {
             .then(() => {
                 localStorage.setItem('user', JSON.stringify(this.user))
                 alert('votre profil a bien été modifier')
-                 window.location = "/"
+                  this.$router.push("/Profil")
             })
             .catch((error) => {
                 console.log(error);
             });
         
-        } 
-    },
+        }, 
+
+        Annuler() {
+           this.$router.push("/Profil")
+        }
+   },
 
        mounted() {
 axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
@@ -80,7 +77,7 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
             console.log("Impossible de traiter les données du profil ! >" + error);
         })
 
-        this.modify()
+        
     }
 }
 
@@ -117,6 +114,17 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
 
 .modifyUser { 
     margin-left: 1em;
+}
+
+.modifyUser input {
+    margin-left: 1em;
+}
+
+.button-modif {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 button{

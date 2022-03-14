@@ -36,6 +36,7 @@ button {
     padding: 0.5em;
     box-shadow: 2px 1px 1px rgb(168, 168, 168);
     color: black;
+    cursor: pointer;
 }
 
 .router-link {

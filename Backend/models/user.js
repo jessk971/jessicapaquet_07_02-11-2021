@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
         User.hasMany(models.Publication, {
             foreignKey: "user_id",
-
+            onDelete: "CASCADE",
         });
         User.hasMany(models.Comment, {
 
             foreignKey: "user_id",
+            onDelete: "CASCADE",
         });
     };
     return User;

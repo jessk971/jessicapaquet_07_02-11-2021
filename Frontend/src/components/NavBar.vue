@@ -73,14 +73,13 @@ margin-top: 1.5em;
 }
 
 .nav-list {
-    margin: 1.5em;
-    margin-right: 1em;
+    
     margin-top: 2em;
     
 }
 
 .nav-list a {
-    margin-right: 2em;
+    margin-right: 1em;
     cursor: pointer;
     text-decoration: none;
     color: white;
@@ -88,8 +87,8 @@ margin-top: 1.5em;
 }
 
 .nav-list a:hover {
-    font-size: x-large;
-    font-weight: bold;
+    color: rgb(213, 213, 213);
+    
 }
     </style>
    

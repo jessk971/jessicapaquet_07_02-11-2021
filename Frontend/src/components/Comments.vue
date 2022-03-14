@@ -17,7 +17,7 @@
     </div>
     
 <p v-if="user.id==comment.user_id || user.isAdmin">
-<button class="delete"   @click="removeComment(comment.id)" type="submit" ><i title="Supprimer" class="fas fa-trash-alt"></i></button>
+<button class="deleteComment"   @click="removeComment(comment.id)" type="submit" ><i title="Supprimer" class="fas fa-trash-alt"></i></button>
 </p>
 </div>
 
@@ -105,7 +105,8 @@ methods: {
             .then((res)=>{
                 console.log(res)
                 alert('Le commentaire a bien été supprimé !')
-                window.location.reload()
+                let newComments = this.comments.filter((c) => c.id != commentaireId);
+                this.comments = newComments;
                 
             })
             .catch((error)=> { 
@@ -154,7 +155,7 @@ methods: {
     margin-left: 5em;
 }
 
- button.delete { 
+ button.deleteComment { 
    
     width: 30px;
     margin-top: 0;
