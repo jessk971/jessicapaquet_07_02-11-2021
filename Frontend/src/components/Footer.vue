@@ -40,4 +40,12 @@ export default {
     text-decoration: none;
     color:white
 }
+
+@media(max-width:412px) {
+
+    .footer-list {
+
+        flex-direction: column;
+    }
+}
 </style>

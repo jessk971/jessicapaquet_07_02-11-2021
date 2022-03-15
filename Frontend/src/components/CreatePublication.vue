@@ -142,4 +142,13 @@ margin-bottom: 1em;
         font-weight: 800;
     }
 
+    @media(max-width:412px) {
+        
+        .container form {
+
+            width: 100%;
+            margin-top: 3em;
+        }
+    }
+
 </style>

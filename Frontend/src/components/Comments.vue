@@ -152,7 +152,7 @@ methods: {
 
 .dateComment {
 
-    margin-left: 5em;
+    margin-left: 6em;
 }
 
  button.deleteComment { 

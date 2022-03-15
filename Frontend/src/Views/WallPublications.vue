@@ -6,6 +6,7 @@
 <div v-for="publication in publications" :key="publication.id">
       <div class="publicationForm">
         <div class="user-publication">
+          <div class="userPostSup">
           <div class="utilisateurs">
             <img class="anonymeUser" src="../assets/profil.png" width="100px" alt="photo de profil">
 
@@ -14,23 +15,25 @@
             <p class="date"> {{ publication.formatDate }} </p>
             </div>
           </div>
-          <p class="publication-content">{{ publication.content }}</p>
-
-          <div v-if="publication.image != null" class="publication-img">
-            <img class="img"  :src="publication.image">
-          </div>
-          <div class="modify">
+           <div class="modify">
             
 
             <div class="Supp">
 
               <p  v-if="user.id==publication.user_id || user.isAdmin">
-              <button  @click="supprimer(publication.id)" id="btn-supp" type="submit">Supprimer</button>
+              <button  @click="supprimer(publication.id)" class="btn-supp" type="submit">Supprimer</button>
               </p>
               </div>
            
             
           </div>
+          </div>
+          <p class="publication-content">{{ publication.content }}</p>
+
+          <div v-if="publication.image != null" class="publication-img">
+            <img class="img"  :src="publication.image">
+          </div>
+         
           <div class="Comments">
             <div class="createComment">
           
@@ -188,11 +191,15 @@ export default {
   width: 50%;
   flex-direction: column;
   padding-top: 2em;
-
   opacity: 0.9;
   padding-bottom: 2em;
   box-shadow: 4px 2px 2px rgb(77 77 77);
   margin-top: 1em;
+}
+
+.btn-supp {
+
+  margin-right: -1em;
 }
 
 .publicationForm:hover {
@@ -229,7 +236,17 @@ export default {
   display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    
+}
+
+.userPostSup {
+
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     border-bottom: solid grey;
+    margin-bottom: 2em;
+
 }
 
 .user-infos { 
@@ -262,13 +279,14 @@ export default {
       margin-left: 1em;
     border: solid rgb(222, 222, 222);
     border-radius: 20px;
-    width: 90%;
+    width: 85%;
     padding-left: 1em;
     background-color: rgb(235, 235, 243); 
     height: 50px;  
     margin-top: 1em;
     padding-top: 1em;
     font-size: large;
+    margin-right: 1em; 
    
 }
 
@@ -277,7 +295,7 @@ export default {
   display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin-right: 2em;
+    margin-right: 1em;
     margin-bottom: 2em;
 }
 
@@ -286,7 +304,57 @@ export default {
   font-size: 20px;
   width: 50px;
   margin-top: 1em;
+  margin-left: -0.5em;
 }
+
+
+@media(max-width:1280px) {
+    .createComment textarea {
+        width: 83%
+    }
+}
+
+@media(max-width:1024px) {
+
+  .createComment textarea {
+    width: 79%;
+  }
+}
+
+@media(max-width:914px) {
+
+  .createComment textarea {
+    width: 75%;
+  }
+}
+ @media(max-width:412px){
+   .publicationForm {
+
+     width: 100%;
+
+   }
+
+  .createComment textarea {
+    width: 73%;
+    } 
+
+    .commentInfos {
+
+      width: 60%;
+    }
+
+    
+  }
+
+  @media(max-width:280px) {
+
+    #wall h1 {
+
+      font-size: 30px;
+    }
+  }
+
+
 
 
 

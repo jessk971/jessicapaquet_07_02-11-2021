@@ -153,7 +153,12 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
         justify-content: center;
     }
 
-    .button-clear button
+    .button-clear .modify
+    {
+        width: 150px;
+    }
+
+     .button-clear .delete
     {
         width: 150px;
     }
@@ -168,6 +173,15 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
   margin-top: 1em;
   margin-bottom: 1em;
   text-align: center;
+    }
+
+    @media(max-width:412px) {
+
+        .profil{
+
+            width: 100%;
+            margin-top: 3em;
+        }
     }
 
 </style>
