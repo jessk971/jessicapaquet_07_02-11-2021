@@ -178,12 +178,6 @@ export default {
 }
 
 
-
-.allComments {
-  margin-top: 1em;
-}
-
-
 .modify {
 
   display: flex;
@@ -191,8 +185,6 @@ export default {
     justify-content: flex-end;
     margin-right: 2em;
 }
-
- 
 
 .valider {
   margin-left: 1em;
@@ -246,73 +238,12 @@ export default {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.createComment textarea {
-      margin-left: 1em;
-    border: solid rgb(222, 222, 222);
-    border-radius: 20px;
-    width: 85%;
-    padding-left: 1em;
-    background-color: rgb(235, 235, 243); 
-    height: 50px;  
-    margin-top: 1em;
-    padding-top: 1em;
-    font-size: large;
-    margin-right: 1em; 
-   
-}
-
-.createComment {
-
-  display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    margin-right: 1em;
-    margin-bottom: 2em;
-}
-
-#valider {
-
-  font-size: 20px;
-  width: 50px;
-  margin-top: 1em;
-  margin-left: -0.5em;
-}
-
-
-@media(max-width:1280px) {
-    .createComment textarea {
-        width: 83%
-    }
-}
-
-@media(max-width:1024px) {
-
-  .createComment textarea {
-    width: 79%;
-  }
-}
-
-@media(max-width:914px) {
-
-  .createComment textarea {
-    width: 75%;
-  }
-}
  @media(max-width:412px){
    .publicationForm {
 
      width: 100%;
 
    }
-
-  .createComment textarea {
-    width: 73%;
-    } 
-
-    .commentInfos {
-
-      width: 60%;
-    }
 
     #wall h1 {
 

@@ -11,7 +11,7 @@
 <div class="nav-log">
 
     <a class="button-menu">
-        <router-link to="/WallPublications"><span>Accueil</span><i title="Home" class="fa-solid fa-house" style="white"></i></router-link>
+        <router-link to="/WallPublications"><span>Accueil</span><i title="Home" class="fas fa-house-user" style="white"></i></router-link>
     </a>
 
 <a class="button-menu">
@@ -23,7 +23,7 @@
 </a>
 
 <a class="button-menu" @click="logOut()">
-    <router-link to="/" >Déconnecter<i title="Déconnecter" class="fas fa-shield-keyhole" style="white"></i> </router-link>
+    <router-link to="/" ><span> Déconnecter</span><i title="Déconnecter" class="fas fa-user-lock" style="white"></i> </router-link>
 </a>
 </div>
         </div>
@@ -74,6 +74,26 @@ verifStoage() {
 .button-menu span {
     display: none;
 }
+}
+
+@media(max-width:412px)
+{
+    .nav-list a {
+
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        font-size: xx-large;
+    }
+
+    .nav-list {
+
+        padding-bottom: 1em;
+    }
+
+    .navlogo img  {
+
+        width: 300px;
+    }
 }
 
 </style>

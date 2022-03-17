@@ -104,7 +104,7 @@ export default {
 
  },
   mounted() {
-      
+    
       this.getAllMyPublications()
 
   }
@@ -113,3 +113,21 @@ export default {
 
 }
 </script>
+
+<style>
+.publicationForm {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  border: solid transparent;
+  border-radius: 10px;
+  margin: auto;
+  width: 50%;
+  flex-direction: column;
+  padding-top: 2em;
+  opacity: 0.9;
+  padding-bottom: 2em;
+  box-shadow: 4px 2px 2px rgb(77 77 77);
+  margin-top: 1em;
+}
+</style>
