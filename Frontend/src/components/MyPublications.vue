@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        /
+        
       </div>
     </div>
   </section>
@@ -51,14 +51,12 @@ import moment from "moment"
 
 export default {
   name: "MyPublications",
+  props: ["user"],
   
 
   data() {
     return {
-       user: {
-        username: "",
-      },
-      
+    
       id: "",
       content: "",
       image: "",
@@ -71,21 +69,11 @@ export default {
 },
 
  methods: {
-     loadUser() {
-    axios
-      .get("http://localhost:3000/api/user/profil", {
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
-      .then((response) => {
-        this.user = response.data.user;
-      })
-      .catch((error) => {
-        console.log("Impossible de traiter les données du profil ! " + error);
-      });
-  },
+    
 
     getAllMyPublications() {
-      axios.get("http://localhost:3000/api/publications/myPost"  , {
+        console.log(this.user)
+      axios.get("http://localhost:3000/api/publications/myPost" +this.user.id  , {
           headers: { Authorization: "Bearer " + localStorage.token },
         })
 
@@ -116,7 +104,7 @@ export default {
 
  },
   mounted() {
-      this.loadUser()
+      
       this.getAllMyPublications()
 
   }

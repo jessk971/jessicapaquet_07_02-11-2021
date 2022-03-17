@@ -42,7 +42,7 @@
     <h2 class="title-wall">Mes Publications</h2>
 
     <div class="wallMyPost">
-        <MyPublications  />
+        <MyPublications v-if="user.id !== undefined" :user="this.user"  />
     </div>
 
 </div>

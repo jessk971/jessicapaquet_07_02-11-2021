@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style>
-    
 .navbar
 {
     background-color: black;
@@ -90,6 +89,17 @@ margin-top: 1.5em;
     color: rgb(213, 213, 213);
     
 }
-    </style>
+
+@media(max-width: 412px) {
+
+    #nav-container {
+
+        justify-content: center;
+    }
+}
+</style>
+    
+
+    
    
    

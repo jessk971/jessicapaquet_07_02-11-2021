@@ -1,5 +1,20 @@
 <template>
     <section >
+
+   <div class="Comments">
+            <div class="createComment">
+          
+
+     <textarea type="text" v-bind:id="publicationId" class="coms"  v-model="dataComs[publicationId]" placeholder="Votre commentaire..."></textarea> 
+     <div class="button-comment">
+      
+      <button type="submit" v-on:click="commenter(publicationId)" id="valider"><i title="Commenter" class="fas fa-comment"></i></button>
+      
+    </div>
+            </div>
+
+   <div class="allComments">
+
  <div class="comment" v-for="comment in comments" :key='comment.id'  >
 
 <div class="userComment">
@@ -28,8 +43,9 @@
 
 
     </div>
-
  </div>
+ </div>
+   </div>
     </section>
 
 </template>
@@ -51,14 +67,12 @@ export default {
   data(){
         return{
             comments:[],
-            publications:[],
-            
             userId:"",
-            
             content:"",
             user:{
                 usersame:""
-            }
+            },
+            dataComs: {},
            
             
 
@@ -112,6 +126,32 @@ methods: {
             .catch((error)=> { 
                 console.log(error)
             })
+        },
+
+         commenter(postId) { 
+           if (this.dataComs[postId] !== null) {
+                axios.post("http://localhost:3000/api/comments", {
+                    content: this.dataComs[postId],
+                    post_id: postId,
+                    
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + window.localStorage.getItem("token")
+                    }
+                })
+                .then(response => {
+                    console.log(response);
+                   let newComment = response.data.comment;
+                   newComment.User = this.user;
+
+                   let date = moment(newComment.createdAt);
+                   newComment.formatDate = date.format("DD/MM/YYYY HH:mm");
+
+                   this.comments.push(newComment);
+                })
+                .catch(error => console.log(error));
+            }
         },
 }
    

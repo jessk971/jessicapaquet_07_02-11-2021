@@ -34,24 +34,14 @@
             <img class="img"  :src="publication.image">
           </div>
          
-          <div class="Comments">
-            <div class="createComment">
-          
-
-     <textarea type="text" v-bind:id="publication.id" class="coms"  v-model="dataComs[publication.id]" placeholder="Votre commentaire..."></textarea> 
-     <div class="button-comment">
-      
-      <button type="submit" v-on:click="commenter(publication.id)" id="valider"><i title="Commenter" class="fas fa-comment"></i></button>
-      
-    </div>
-
+         
           </div>
-        <div class="allComments">
+        
           <Comments :publicationId="publication.id"  />
           
-          </div>
-      </div>
-        </div>
+          
+      
+        
       </div>
     </div>
   </div>
@@ -86,7 +76,7 @@ export default {
       Comments: [],
       publications: [],
       userId: "",
-      dataComs:{},
+      
       
     };
   },
@@ -135,26 +125,7 @@ export default {
             })
             .catch(error => console.log(error));
         },
-        commenter(postId) { 
-           if (this.dataComs[postId] !== null) {
-                axios.post("http://localhost:3000/api/comments", {
-                    content: this.dataComs[postId],
-                    post_id: postId,
-                    
-                },
-                {
-                    headers: {
-                        Authorization: "Bearer " + window.localStorage.getItem("token")
-                    }
-                })
-                .then(response => {
-                    console.log(response);
-                   window.location.reload();
-                    
-                })
-                .catch(error => console.log(error));
-            }
-        },
+       
 
       
   
@@ -343,6 +314,11 @@ export default {
       width: 60%;
     }
 
+    #wall h1 {
+
+      font-size: 60px;
+    }
+
     
   }
 
@@ -352,6 +328,8 @@ export default {
 
       font-size: 30px;
     }
+
+    
   }
 
 
