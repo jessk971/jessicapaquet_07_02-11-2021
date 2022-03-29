@@ -10,6 +10,6 @@ router.get('/:id', auth, multer, publicationController.getOnePublication);
 router.get('/:id/comments', auth, publicationController.getAllComments);
 router.put('/:id', auth, multer, publicationController.modifyPublication);
 router.delete('/:id', publicationController.deletePublication);
-router.get('/myPost/userId', auth, multer, publicationController.getAllMyPublication);
+router.get('/myPost/:userId', auth, multer, publicationController.getAllMyPublication);
 
 module.exports = router;
