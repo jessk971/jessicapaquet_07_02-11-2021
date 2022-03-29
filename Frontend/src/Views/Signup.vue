@@ -174,6 +174,39 @@ margin-top: 1.5em;
     }
 }
 
+@media(max-width: 426px) {
+
+    .title-login h1 {
+        font-size: 40px;
+    }
+
+    #nav-container {
+
+        justify-content: center;
+    }
+
+    .nav-list a {
+
+     font-size: xx-large;
+     margin-right: 0.5em;
+    }
+
+    .nav-list {
+
+      margin-bottom: 1em;  
+
+    }
+
+    .navlogo img {
+
+        width: 250px;
+    }
+
+    #inputPassword {
+
+        width: 120px;
+    }
+}
 @media(max-width: 414px) { 
 
  #nav-container {
@@ -212,6 +245,8 @@ margin-top: 1.5em;
     
 }
 
+
+
 @media(max-width: 376px) {
 
     .nav-list {
@@ -228,9 +263,7 @@ margin-top: 1.5em;
 }
 
 @media(max-width: 280px) {
-    .title-login h1 {
-        font-size: 40px;
-    }
+    
 
     .form_signup input {
 
@@ -246,6 +279,8 @@ margin-top: 1.5em;
 
         font-size: larger;
     }
+
+   
 
 }
     </style>

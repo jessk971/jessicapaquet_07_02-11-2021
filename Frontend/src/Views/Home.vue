@@ -58,7 +58,7 @@ export default {
     font-size: 50px;
 }
 
-@media(max-width: 414px)
+@media(max-width: 426px)
 {
     .home-presentation h1 {
         font-size: 60px;
@@ -69,7 +69,19 @@ export default {
     }
 }
 
-@media(max-width: 280px) {
+@media(max-width: 376px) {
+
+    .home-presentation h1 {
+        font-size: 50px;
+    }
+
+    .nav-log {
+
+        margin-right: -2em;
+    }
+}
+
+@media(max-width: 320px) {
 
     
     .home-presentation h1 {

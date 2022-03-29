@@ -130,4 +130,20 @@ import axios from 'axios'
         font-size: 40px;
     }
 }
+
+@media(max-width: 360px) { 
+
+     .title-login h1 {
+        font-size: 30px;
+    }
+}
+
+@media(max-width: 280px)
+{
+
+     #inputPassword  {
+
+       width: 130px; 
+    }
+}
 </style>

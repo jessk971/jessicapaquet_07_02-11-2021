@@ -2,6 +2,8 @@
     <section class="container">
 <NavBarTwo />
 
+<h1 class="title-wall">Profil</h1>
+
 <div class="profil">
 
     <div class="usernameImg">
@@ -37,15 +39,7 @@
 </div>
 
 </div>
-
-<div class="MyPublications">
-    <h2 class="title-wall">Mes Publications</h2>
-
-    <div class="wallMyPost">
         <MyPublications v-if="user.id !== undefined" :user="this.user"  />
-    </div>
-
-</div>
 
     </section>
 </template>
@@ -153,9 +147,9 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
         justify-content: center;
     }
 
-    .button-clear .modify
+    button.modify 
     {
-        width: 150px;
+        width: 120px;
     }
 
      .button-clear .delete

@@ -90,11 +90,17 @@ margin-top: 1.5em;
     
 }
 
-@media(max-width: 414px) { 
+@media(max-width: 426px) {
 
- #nav-container {
+#nav-container {
 
         justify-content: center;
+    }
+
+    .nav-list a {
+
+     font-size: xx-large;
+     margin-right: 0.5em;
     }
 
     .nav-list {
@@ -103,9 +109,19 @@ margin-top: 1.5em;
 
     }
 
+    .navlogo img {
+
+        width: 250px;
+    }
+
+   
+}
+
+@media(max-width: 414px) { 
+
     .nav-list a {
 
-        font-size: xx-large;
+        
         margin-right: 0.5em;
     }
 

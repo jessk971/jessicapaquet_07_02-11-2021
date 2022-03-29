@@ -31,7 +31,7 @@
           <p class="publication-content">{{ publication.content }}</p>
 
           <div v-if="publication.image != null" class="publication-img">
-            <img class="img"  :src="publication.image">
+            <img class="img" alt="image publication"  :src="publication.image">
           </div>
          
          
@@ -257,7 +257,7 @@ export default {
 
     #wall h1 {
 
-      font-size: 30px;
+      font-size: 40px;
     }
 
     
