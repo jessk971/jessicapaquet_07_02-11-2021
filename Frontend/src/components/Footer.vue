@@ -47,5 +47,10 @@ export default {
 
         flex-direction: column;
     }
+
+    .footer-container {
+
+        font-size: large;
+    }
 }
 </style>

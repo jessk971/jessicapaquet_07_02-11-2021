@@ -122,3 +122,12 @@ import axios from 'axios'
  
 
 </script>
+
+<style>
+@media(max-width: 414px) {
+
+      .title-login h1 {
+        font-size: 40px;
+    }
+}
+</style>

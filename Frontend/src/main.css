@@ -69,3 +69,16 @@ button:hover {
 img {
     object-fit: cover;
 }
+
+@media(max-width: 653px) {
+    .container_login form {
+        width: 100%;
+    }
+}
+
+@media(max-width: 414px) {
+    .container_login form {
+        width: 100%;
+        margin: initial
+    }
+}

@@ -58,5 +58,31 @@ export default {
     font-size: 50px;
 }
 
+@media(max-width: 414px)
+{
+    .home-presentation h1 {
+        font-size: 60px;
+    }
+
+    .home-presentation h2 {
+        font-size: 40px;
+    }
+}
+
+@media(max-width: 280px) {
+
+    
+    .home-presentation h1 {
+
+        font-size: 40px;
+
+    }
+
+    .home-presentation h2 {
+
+        font-size: 30px;
+    }
+}
+
 </style>
 

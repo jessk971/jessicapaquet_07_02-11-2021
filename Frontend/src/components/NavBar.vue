@@ -90,13 +90,63 @@ margin-top: 1.5em;
     
 }
 
-@media(max-width: 412px) {
+@media(max-width: 414px) { 
 
-    #nav-container {
+ #nav-container {
 
         justify-content: center;
     }
+
+    .nav-list {
+
+      margin-bottom: 1em;  
+
+    }
+
+    .nav-list a {
+
+        font-size: xx-large;
+        margin-right: 0.5em;
+    }
+
+    .navlogo img {
+
+        width: 250px;
+    }
 }
+
+
+
+
+@media(max-width: 360px) {
+
+.nav-list {
+
+    margin-left: 1em;
+
+    }
+
+     .nav-list a {
+
+        font-size: x-large;
+    }
+}
+
+@media(max-width: 280px) {
+
+    .nav-list {
+
+        margin-left: 1em;
+    }
+
+    .nav-list a {
+
+        font-size: larger;
+    }
+
+}
+
+
 </style>
     
 

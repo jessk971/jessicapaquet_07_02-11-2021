@@ -157,10 +157,96 @@ margin-top: 1.5em;
 }
 
 .nav-list a:hover {
-    background-color: grey;
-    border: solid grey;
-    padding: 1.5em;
-    padding-bottom: 1.6em;
+    color: rgb(213, 213, 213);
+}
+
+@media(max-width: 820px) {
+ .form_signup input{
+
+     margin-left: 1em;
+ }
+
+}
+
+@media(max-width: 654px) {
+    .container_login form {
+        width: unset;
+    }
+}
+
+@media(max-width: 414px) { 
+
+ #nav-container {
+
+        justify-content: center;
+    }
+
+    .nav-list {
+
+      margin-bottom: 1em;  
+
+    }
+
+    .nav-list a {
+
+        font-size: xx-large;
+        margin-right: 0.5em;
+    }
+
+    .navlogo img {
+
+        width: 250px;
+    }
+
+    #inputPassword {
+
+        width:130px
+    }
+
+    
+    .nav-list {
+
+        margin-left: 1em;
+    }
+
+    
+}
+
+@media(max-width: 376px) {
+
+    .nav-list {
+
+    margin-left: 1em;
+
+    }
+
+     .nav-list a {
+
+        font-size: x-large;
+    }
+
+}
+
+@media(max-width: 280px) {
+    .title-login h1 {
+        font-size: 40px;
+    }
+
+    .form_signup input {
+
+        margin-left: 1em;
+    }
+
+     .nav-list {
+
+        margin-left: 1em;
+    }
+
+    .nav-list a {
+
+        font-size: larger;
+    }
+
 }
     </style>
    
