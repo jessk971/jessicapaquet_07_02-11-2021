@@ -107,7 +107,7 @@ import axios from 'axios'
                 console.log(this.isAdmin);
             }
             alert('Bienvenue , vous êtes maintenant connecté')
-            this.$router.push('/Profil')
+            this.$router.push('/WallPublications')
         })
          .catch(() => { 
                   alert('Mot de passe incorrect')

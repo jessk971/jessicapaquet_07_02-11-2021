@@ -86,6 +86,12 @@ export default {
     
 
       mounted() {
+
+           let token = localStorage.getItem("token");
+    if (!token || token == null) {
+      location.href = "/";
+    }
+    
 axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Bearer ' + localStorage.token}})
         .then(response => {
             
