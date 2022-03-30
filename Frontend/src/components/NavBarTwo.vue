@@ -47,7 +47,7 @@ export default {
            
             localStorage.clear()
             alert('Vous allez être déconnecté')
-            router.push('/')
+            this.router.push('/')
         }
     }
 }

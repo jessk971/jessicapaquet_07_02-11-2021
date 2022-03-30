@@ -32,7 +32,7 @@
           <p class="publication-content">{{ publication.content }}</p>
 
           <div v-if="publication.image != null" class="publication-img">
-            <img class="img"  :src="publication.image">
+            <img class="img"  :src="publication.image" alt="image publication">
           </div>
          
          

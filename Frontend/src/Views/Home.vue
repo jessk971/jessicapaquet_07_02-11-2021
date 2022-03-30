@@ -50,7 +50,7 @@ export default {
 
 .home-presentation h1 {
     margin-top: 0;
-    font-size: 80px;
+    font-size: 70px;
     
     
 }
