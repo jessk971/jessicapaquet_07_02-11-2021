@@ -102,7 +102,7 @@ export default {
         })
 
         .then((response) => {
-          console.log("publications", response.data);
+          //console.log("publications", response.data);
           this.publications = response.data.map(p => {
             let date = moment(p.createdAt)
             p.formatDate = date.format('DD/MM/YYYY HH:mm')

@@ -81,13 +81,13 @@ export default {
     
 
     getAllMyPublications() {
-        console.log(this.user)
+        //console.log(this.user)
       axios.get("http://localhost:3000/api/publications/myPost/" +this.user.id  , {
           headers: { Authorization: "Bearer " + localStorage.token },
         })
 
         .then((response) => {
-          console.log("publications", response.data);
+          //console.log("publications", response.data);
           this.publications = response.data.map(p => {
             let date = moment(p.createdAt)
             p.formatDate = date.format('DD/MM/YYYY HH:mm')

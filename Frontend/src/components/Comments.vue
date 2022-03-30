@@ -90,7 +90,7 @@ export default {
         .then(response => {
             
             this.user = response.data.user
-            console.log('this.user',this.user)
+            //console.log('this.user',this.user)
         })
         .catch(error => console.log(error));
         
@@ -106,7 +106,7 @@ export default {
             p.formatDate = date.format('DD/MM/YYYY HH:mm')
             return p;
           }) 
-            console.log('comments',this.comments)
+            //console.log('comments',this.comments)
         
         })
         .catch(error => console.log(error));
@@ -114,7 +114,7 @@ export default {
 
 methods: {
     removeComment(commentaireId){
-            console.log(commentaireId)
+            //console.log(commentaireId)
             axios.delete('http://localhost:3000/api/comments/'   + commentaireId,{ headers: { "Authorization":"Bearer " + localStorage.getItem("token")}})
             .then((res)=>{
                 console.log(res)
@@ -141,7 +141,7 @@ methods: {
                     }
                 })
                 .then(response => {
-                    console.log(response);
+                   // console.log(response);
                    let newComment = response.data.comment;
                    newComment.User = this.user;
 

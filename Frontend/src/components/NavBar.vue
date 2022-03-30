@@ -90,20 +90,32 @@ margin-top: 1.5em;
     
 }
 
-@media(max-width: 563px) {
+@media(max-width: 464px) {
 
-#nav-container {
+    #nav-container {
 
         justify-content: center;
     }
 
+    .nav-list a {
+
+        font-size: x-large;
+       
+    }
+
+    .nav-list {
+
+    margin-bottom: 1em;
+    margin-left: 2em;
+
+    }
 }
 
 @media(max-width: 426px) {
 
      .nav-list a {
 
-     font-size: xx-large;
+     font-size: x-large;
      margin-right: 0.5em;
     }
 
