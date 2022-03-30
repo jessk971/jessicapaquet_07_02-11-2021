@@ -242,34 +242,104 @@ methods: {
 
 @media(max-width:1280px) {
     .createComment textarea {
-        width: 83%
+        width: 80%
     }
 }
 
 @media(max-width:1024px) {
 
   .createComment textarea {
-    width: 79%;
+    width: 75%;
+    margin-left: 0.5em ;
   }
 }
 
-@media(max-width:914px) {
+@media(max-width:916px) {
 
   .createComment textarea {
+
     width: 75%;
+    margin-left: 0.5em;
+
+  }
+
+  .commentInfos {
+
+      margin-left: 0.5em;
+  }
+
+  .userComment {
+
+      margin-left: 1em;
   }
 }
 
-@media(max-width:412px) {
+@media(max-width: 820px) {
+
+  .commentInfos {
+
+      width: 60%;
+  }
+}
+
+@media(max-width: 720px) {
 
     .createComment textarea {
-    width: 73%;
-    } 
+
+        width: 70%;
+    }
+}
+
+@media(max-width: 320px) {
+
+    .createComment textarea {
+
+        width: 70%;
+    }
+
+    .createComment {
+
+        margin-right: 0.5em;
+    }
+}
+
+@media(max-width: 295px)
+{
+    .createComment textarea {
+
+        width: 65%;
+    }
 
     .commentInfos {
 
-      width: 60%;
+        width: 55%;
     }
+}
+
+@media(max-width: 280px) {
+
+    .createComment {
+
+        margin-right: 0.5em;
+    }
+
+    .userComment {
+
+        margin-left: 1em;
+    }
+
+    button.dateComment {
+
+        margin-left: 0.5em;
+    }
+
+    .commentInfos {
+
+        margin-left: 0.5em;
+        width: 55%
+    }
+
+   
 }
 
 </style>

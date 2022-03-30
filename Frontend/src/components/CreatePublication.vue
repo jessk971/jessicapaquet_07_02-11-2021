@@ -2,7 +2,7 @@
    <section class="container">
        <NavBarTwo />
  
-<form v-on:submit.prevent="createPublication">
+<form class="createForm" v-on:submit.prevent="createPublication">
 
        <div class="created">
            <label for="content">Quoi de neuf <em> {{ user.username}} </em> ?</label>
@@ -97,7 +97,7 @@ export default {
 
 <style>
 
-.container form { 
+.createForm { 
     display: flex;
     flex-wrap: wrap;
     background-color: white;
@@ -142,13 +142,16 @@ margin-bottom: 1em;
         font-weight: 800;
     }
 
-    @media(max-width:412px) {
-        
-        .container form {
+    @media(max-width: 653px) {
+
+        .createForm {
 
             width: 100%;
-            margin-top: 3em;
+            box-shadow: none;
+            border: none;
         }
     }
+
+  
 
 </style>

@@ -22,7 +22,7 @@
             <div class="Supp">
 
               <p  v-if="user.id==publication.user_id || user.isAdmin">
-              <button  @click="supprimer(publication.id)" class="btn-supp" type="submit">Supprimer</button>
+              <button  @click="supprimer(publication.id)" class="btn-supp" type="submit"><i title="Supprimer" class="fas fa-trash-alt"></i><span>Supprimer</span></button>
               </p>
               </div>
            
@@ -143,6 +143,12 @@ export default {
 .btn-supp {
 
   margin-right: -1em;
+  padding-right: 1em;
+}
+
+.btn-supp i {
+
+  visibility: hidden;
 }
 
 .publicationForm:hover {
@@ -210,12 +216,17 @@ export default {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+ @media(max-width: 654px) {
+
+  .publicationForm {
+
+    width: 100%;
+    box-shadow: none;
+    border: none;
+  }
+}
  @media(max-width:412px){
-   .publicationForm {
-
-     width: 100%;
-
-   }
+   
 
     #wall h1 {
 
@@ -225,11 +236,41 @@ export default {
     
   }
 
+  @media(max-width: 325px)
+{
+  .btn-supp i {
+
+    visibility:visible;
+    
+  }
+
+  .btn-supp {
+
+    width: 40px;
+    padding-right: 0.5em;
+  }
+
+  .btn-supp span {
+
+    display: none;
+  }
+}
+
+@media(max-width: 320px) {
+
+
+  #wall h1 {
+    font-size: 50px;
+
+  }
+}
+
+
   @media(max-width:280px) {
 
     #wall h1 {
 
-      font-size: 30px;
+      font-size: 40px;
     }
 
     

@@ -32,8 +32,8 @@
     </div>
 <div class="button-clear">
 
-    <button class="modify" @click="modifyUser()">Modifier le profil</button>
-    <button class="delete" @click="deleteUser(user)">Supprimer le profil</button>
+    <button title="Modifier Profil" class="modifyProfil" @click="modifyUser()"><i title="Modifier Profil" class="fas fa-pen"></i><span>Modifier</span></button>
+    <button title="Supprimer Profil" class="deleteProfil" @click="deleteUser(user)"><i title="Supprimer" class="fas fa-trash-alt"></i><span>Supprimer</span></button>
     
 
 </div>
@@ -147,15 +147,27 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
         justify-content: center;
     }
 
-    button.modify 
+    button.modifyProfil 
     {
-        width: 120px;
+        width: 100px;
     }
 
-     .button-clear .delete
-    {
-        width: 150px;
+    .button-clear button {
+
+        padding-right: 2em;
     }
+
+    button.deleteProfil {
+
+        width: unset;
+    }
+
+    .button-clear i {
+
+        visibility: hidden;
+    }
+
+     
 
     .title-wall {
 
@@ -169,12 +181,45 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
   text-align: center;
     }
 
-    @media(max-width:412px) {
+@media(max-width: 654px) {
+
+    .profil {
+
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        
+    }
+
+    .button-clear span {
+
+        display: none;
+    }
+
+    .button-clear i {
+
+        visibility: visible;
+    }
+
+    .button-clear button {
+
+        width: 50px;
+        padding-right: 0.5em;
+    }
+}    @media(max-width:412px) {
 
         .profil{
 
             width: 100%;
             margin-top: 3em;
+        }
+    }
+
+    @media(max-width: 297px) {
+
+        .button-clear i {
+
+            visibility: visible;
         }
     }
 

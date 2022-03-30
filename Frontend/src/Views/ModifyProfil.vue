@@ -5,7 +5,7 @@
      <div class="Modify">
          <h1>Modifier votre profil</h1>
 
-<form>
+<form class="modifyForm">
          <div class="modifyUser">
 
          <label for="inputUserName"> Nom d'utilisateur: </label> 
@@ -16,7 +16,7 @@
 <div class="button-modif">
 
         <div class="modify-button">
-            <button class="modify" @click="modify(user)"> Modifier</button>
+            <button class="modifyValid" @click="modify(user)"> Modifier</button>
         </div>
 
         <div class="annulerModif">
@@ -95,7 +95,8 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
   margin-bottom: 0;
   text-align: center;
 }
- form {
+
+ .modifyForm {
     display: flex;
     flex-wrap: wrap;
     background-color: white;
@@ -127,12 +128,22 @@ axios.get("http://localhost:3000/api/user/profil", {headers: {Authorization: 'Be
     justify-content: space-around;
 }
 
-button{
+button.modifyValid {
 
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
 
+}
+
+@media(max-width: 654px) {
+
+    .modifyForm {
+
+        width: 100%;
+        border: none;
+        box-shadow: none;
+    }
 }
 </style>
 

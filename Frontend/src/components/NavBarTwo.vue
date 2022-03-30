@@ -43,17 +43,13 @@ export default {
     },
     methods: {
 
-logOut() {
-
-localStorage.removeItem("user");
-
-},
-verifStoage() {
-    if(!localStorage.getItem('user')) {
-        window.location = "/";
+        logOut() {
+           
+            localStorage.clear()
+            alert('Vous allez être déconnecté')
+            router.push('/')
         }
     }
-}
 }
 
 </script>
@@ -85,6 +81,14 @@ margin-bottom: 1em;
     }
 }
 
+@media(max-width: 654px) {
+
+    #nav-container {
+
+        justify-content: space-between;
+    }
+}
+
 
 @media(max-width: 660px) {
 
@@ -111,6 +115,11 @@ margin-bottom: 1em;
         margin-left: auto;
         
     }
+
+    
+    #nav-container {
+    justify-content: center;
+}
 }
 
 @media(max-width: 426px){
@@ -118,7 +127,21 @@ margin-bottom: 1em;
     .nav-list {
 
     margin-left: 1em;
-    margin-right: -4em;
+
+    }
+
+    .button-menu i {
+ 
+    margin-right: 1em;
+
+    }
+}
+
+@media(max-width: 470px) {
+
+    .button-menu i {
+
+        margin-right: 0.5em;
     }
 }
 @media(max-width:414px)
@@ -132,7 +155,7 @@ margin-bottom: 1em;
 .nav-list {
 
     margin-left: 1em;
-    margin-right: -2em;
+    
 }
     
     .navlogo img  {
@@ -140,6 +163,8 @@ margin-bottom: 1em;
         width: 300px;
     }
 }
+
+
 
 @media(max-width: 394px) {
 
@@ -163,6 +188,13 @@ margin-bottom: 1em;
 
         margin-left: 0.5em;
     }
+
+    .button-menu i {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+
+    }
+ 
 }
 
 @media(max-width: 280px) {
@@ -174,9 +206,16 @@ margin-bottom: 1em;
 
     .nav-list i {
 
-        font-size: large;
-        margin-left: -1em;
+        font-size: larger;
+        
     }
+
+    .nav-list {
+
+        margin-right: 1em;
+    }
+
+ 
 }
 
 </style>

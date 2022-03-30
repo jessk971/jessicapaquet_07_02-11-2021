@@ -75,10 +75,7 @@ export default {
         font-size: 50px;
     }
 
-    .nav-log {
-
-        margin-right: -2em;
-    }
+    
 }
 
 @media(max-width: 320px) {
