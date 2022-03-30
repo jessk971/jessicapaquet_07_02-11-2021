@@ -59,17 +59,6 @@ exports.getOnePublication = (req, res) => {
         .catch(error => res.status(400).json({ message: 'Impossible d\'afficher cette publication', error }));
 }
 
-exports.modifyPublication = (req, res) => {
-    let updatedPublication = {
-        content: req.body.content,
-    }
-    if (req.file) {
-        updatedPublication["image"] = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    }
-    db.Publication.update(updatedPublication, { where: { id: req.params.id, user_id: req.body.user_id } })
-        .then(() => res.status(200).json({ message: 'Publication modifiée avec succès' }))
-        .catch(error => res.status(400).json({ message: 'Impossible de modifier cette publication', error }));
-}
 
 exports.deletePublication = (req, res, next) => {
     db.Publication.findOne({ id: req.params.id })
