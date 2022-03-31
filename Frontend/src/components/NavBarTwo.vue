@@ -46,10 +46,12 @@ export default {
         logOut() {
            
            localStorage.removeItem("token");
+           alert('Vous allez être déconnecté');
+
         },
         verifStorage() {
             if(!localStorage.getItem('token')) {
-                window.location = "/";
+                this.$router.push("/");
             }
         }
     }
