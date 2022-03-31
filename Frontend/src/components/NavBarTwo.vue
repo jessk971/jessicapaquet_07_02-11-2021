@@ -45,9 +45,12 @@ export default {
 
         logOut() {
            
-            localStorage.clear()
-            alert('Vous allez être déconnecté')
-            this.router.push('/')
+           localStorage.removeItem("token");
+        },
+        verifStorage() {
+            if(!localStorage.getItem('token')) {
+                window.location = "/";
+            }
         }
     }
 }
